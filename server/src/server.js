@@ -1,4 +1,5 @@
 import express from "express";
+import { port } from "configs/constants.config";
 
 function startServer() {
   const app = express();
@@ -7,8 +8,10 @@ function startServer() {
     res.send({ message: "hello" });
   });
 
-  app.listen(8000, () => {
-    console.log("App listening on port: 8000");
+  app.listen(port, () => {
+    console.log("#################################################");
+    console.log(" 🛡️  Server listening on port: ", port, " 🛡️ ");
+    console.log("################################################");
   });
 }
 
