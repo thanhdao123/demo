@@ -1,0 +1,1 @@
+import "configs/firebase.config";

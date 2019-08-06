@@ -1,0 +1,38 @@
+{
+  "name": "demo",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "firebase": "^6.3.4",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.1.0",
+    "react-scripts": "^3.0.1",
+    "redux": "^4.0.1",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0"
+  },
+  "scripts": {
+    "prestart": "tailwind build src/styles/index.tailwind.css -c tailwind.config.js -o src/styles/index.css",
+    "start": "react-scripts start",
+    "build": "react-scripts build"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "tailwindcss": "^1.0.4"
+  }
+}
