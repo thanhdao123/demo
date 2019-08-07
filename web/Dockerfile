@@ -1,9 +1,9 @@
 FROM node:alpine as builder
 WORKDIR /app
-COPY package.json package.json 
+COPY package.json package.json
 RUN yarn install
 COPY . .
-CMD ["yarn", "build"]
+RUN yarn build
 
 FROM nginx:alpine
 EXPOSE 3000
