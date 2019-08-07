@@ -2,30 +2,35 @@ version: "3"
 
 services:
   traefik:
-    image: traefik:alpine
-    command: --api --docker
+    image: traefik:1.7
     ports:
       - "80:80"
       - "8080:8080"
+      - "443:443"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
-      - "./traefik:/etc/traefik"
+      - "./traefik:/etc/traefik/"
 
   web:
     build:
       context: web
       dockerfile: Dockerfile.dev
-    ports:
-      - "3000:3000"
     volumes:
       - "/app/node_modules"
       - "./web:/app"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:web.docker.localhost"
+      - "traefik.port=3000"
+
   server:
     build:
       context: server
       dockerfile: Dockerfile.dev
-    ports:
-      - "8000:8000"
     volumes:
       - "/app/node_modules"
       - "./server:/app"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:server.docker.localhost"
+      - "traefik.port=8000"
