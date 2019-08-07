@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSubscription } from "@apollo/react-hooks";
+import gql from "graphql-tag";
 
 function Layout() {
+  useTestSubscription();
   return (
     <div className="w-full h-screen flex justify-center items-center">
       <div className="flex flex-col">
@@ -12,6 +15,25 @@ function Layout() {
       </div>
     </div>
   );
+}
+
+const POST_SUBSCRIBE = gql`
+  subscription {
+    postAdded {
+      author
+      comment
+    }
+  }
+`;
+
+function useTestSubscription() {
+  const { data, error, loading } = useSubscription(POST_SUBSCRIBE);
+  useEffect(() => {
+    if (error || loading) {
+      return;
+    }
+    console.log(data);
+  });
 }
 
 export default Layout;
