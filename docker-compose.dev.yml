@@ -20,7 +20,7 @@ services:
       - "./web:/app"
     labels:
       - "traefik.enable=true"
-      - "traefik.frontend.rule=Host:web.docker.localhost"
+      - "traefik.frontend.rule=Host:web.awesome-domain.tk"
       - "traefik.port=3000"
 
   server:
@@ -32,5 +32,5 @@ services:
       - "./server:/app"
     labels:
       - "traefik.enable=true"
-      - "traefik.frontend.rule=Host:server.docker.localhost"
+      - "traefik.frontend.rule=Host:server.awesome-domain.tk"
       - "traefik.port=8000"
