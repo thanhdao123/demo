@@ -11,11 +11,11 @@ import { getMainDefinition } from "apollo-utilities";
 import config from "configs/constants.config";
 
 const httpLink = new HttpLink({
-  uri: `http://${config.apolloURI}/graphql`
+  uri: config.apolloHttpLinkURI
 });
 
 const wsLink = new WebSocketLink({
-  uri: `ws://${config.apolloURI}/graphql`,
+  uri: config.apolloWsLinkURI,
   options: { reconnect: true }
 });
 

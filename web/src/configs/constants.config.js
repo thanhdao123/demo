@@ -1,9 +1,11 @@
 const devConfig = {
-  apolloURI: "docker.local/server"
+  apolloHttpLinkURI: "http://docker.localhost/server/graphql",
+  apolloWsLinkURI: "ws://docker.localhost/server/graphql"
 };
 
 const stagingConfig = {
-  apolloURI: "awesome-domain.tk/server"
+  apolloHttpLinkURI: "awesome-domain.tk/server/graphql",
+  apolloWsLinkURI: "wss://awesome-domain.tk/server/graphql"
 };
 
 function getConfig() {

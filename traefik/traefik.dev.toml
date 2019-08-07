@@ -9,6 +9,6 @@ defaultEntryPoints = ["http"]
 [api]
 
 [docker]
-domain = "awesome-domain.tk"
+domain = "docker.localhost"
 endpoint = "unix:///var/run/docker.sock"
 exposedByDefault = false
