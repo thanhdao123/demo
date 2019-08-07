@@ -9,7 +9,8 @@ services:
       - "443:443"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
-      - "./traefik:/etc/traefik/"
+      - "./traefik/traefik.dev.toml:/etc/traefik/traefik.toml"
+      - "./traefik/acme.json:/etc/traefik/acme.json"
 
   web:
     build:
@@ -20,7 +21,7 @@ services:
       - "./web:/app"
     labels:
       - "traefik.enable=true"
-      - "traefik.frontend.rule=Host:awesome-domain.tk"
+      - "traefik.frontend.rule=Host:docker.localhost"
       - "traefik.port=3000"
 
   server:
@@ -32,5 +33,5 @@ services:
       - "./server:/app"
     labels:
       - "traefik.enable=true"
-      - "traefik.frontend.rule=Host:awesome-domain.tk;PathPrefixStrip:/server"
+      - "traefik.frontend.rule=Host:docker.localhost;PathPrefixStrip:/server"
       - "traefik.port=8000"
