@@ -1,13 +1,16 @@
 import React from "react";
-import { Provider } from "react-redux";
 
-import store from "app/store";
+import ReduxProvider from "app/store";
+import ApolloProvider from "configs/apollo.config";
+
 import Layout from "app/layout";
 
 export default function App() {
   return (
-    <Provider store={store}>
-      <Layout />
-    </Provider>
+    <ApolloProvider>
+      <ReduxProvider>
+        <Layout />
+      </ReduxProvider>
+    </ApolloProvider>
   );
 }

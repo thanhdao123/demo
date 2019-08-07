@@ -1,3 +1,6 @@
+import React from "react";
+import { Provider } from "react-redux";
+
 import { applyMiddleware, createStore } from "redux";
 import createReducer from "app/store/reducers";
 import thunk from "redux-thunk";
@@ -21,4 +24,6 @@ export const withReducer = (key, reducer) => WrappedComponent => {
   return WrappedComponent;
 };
 
-export default store;
+export default function ReduxProvider({ children }) {
+  return <Provider store={store}>{children}</Provider>;
+}

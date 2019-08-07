@@ -3,18 +3,28 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/react-hooks": "^3.0.0",
+    "apollo-cache-inmemory": "^1.6.2",
+    "apollo-client": "^2.6.3",
+    "apollo-link": "^1.2.12",
+    "apollo-link-error": "^1.1.11",
+    "apollo-link-http": "^1.5.15",
+    "apollo-link-ws": "^1.0.18",
     "firebase": "^6.3.4",
+    "graphql": "^14.4.2",
+    "graphql-tag": "^2.10.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.1.0",
     "react-scripts": "^3.0.1",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "subscriptions-transport-ws": "^0.9.16"
   },
   "scripts": {
     "prestart": "tailwind build src/styles/index.tailwind.css -c tailwind.config.js -o src/styles/index.css",
-    "start": "react-scripts start",
+    "start": "STATE=DEV react-scripts start",
     "build": "react-scripts build"
   },
   "eslintConfig": {
