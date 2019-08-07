@@ -1,14 +1,11 @@
-import express from "express";
 import { port } from "configs/constants.config";
 
+import setupApolloServer from "setup/apolloServer.setup";
+
 function startServer() {
-  const app = express();
+  const server = setupApolloServer();
 
-  app.use("/", (req, res) => {
-    res.send({ message: "hello" });
-  });
-
-  app.listen(port, () => {
+  server.listen(port, () => {
     console.log("#################################################");
     console.log(" 🛡️  Server listening on port: ", port, " 🛡️ ");
     console.log("################################################");
