@@ -13,4 +13,5 @@ COPY yarn.lock yarn.lock
 
 RUN yarn install
 
-CMD ["sh", "-c", "dockerize -wait http://server:8000 && yarn start"]
+# CMD ["sh", "-c", "dockerize -wait http://server:8000/graphql && yarn start"]
+CMD ["yarn", "start"]

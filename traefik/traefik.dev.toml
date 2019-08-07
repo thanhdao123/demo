@@ -1,13 +1,10 @@
-logLevel = "ERROR"
+logLevel = "INFO"
 
-defaultEntryPoints = ["https", "http"]
+defaultEntryPoints = ["http"]
 
 [entryPoints]
   [entryPoints.http]
   address = ":80"
-  [entryPoints.https]
-  address = ":443"
-  [entryPoints.https.tls]
 
 [api]
 

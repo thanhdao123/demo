@@ -3,7 +3,7 @@ const devConfig = {
 };
 
 const stagingConfig = {
-  apolloURI: ""
+  apolloURI: "awesome-domain.tk/server"
 };
 
 function getConfig() {

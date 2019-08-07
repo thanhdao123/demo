@@ -25,7 +25,7 @@
   "scripts": {
     "prestart": "tailwind build src/styles/index.tailwind.css -c tailwind.config.js -o src/styles/index.css",
     "start": "REACT_APP_STATE=DEV react-scripts start",
-    "build": "react-scripts build"
+    "build": "REACT_APP_STATE=STAGING react-scripts build"
   },
   "eslintConfig": {
     "extends": "react-app"

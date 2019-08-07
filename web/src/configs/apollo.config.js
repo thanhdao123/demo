@@ -16,9 +16,7 @@ const httpLink = new HttpLink({
 
 const wsLink = new WebSocketLink({
   uri: `ws://${config.apolloURI}/graphql`,
-  options: {
-    reconnect: true
-  }
+  options: { reconnect: true }
 });
 
 const link = split(

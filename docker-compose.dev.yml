@@ -2,7 +2,7 @@ version: "3"
 
 services:
   traefik:
-    image: traefik:1.7
+    image: traefik:1.7-alpine
     ports:
       - "80:80"
       - "8080:8080"
@@ -28,6 +28,8 @@ services:
     build:
       context: server
       dockerfile: Dockerfile.dev
+    ports:
+      - "8000:8000"
     volumes:
       - "/app/node_modules"
       - "./server:/app"
