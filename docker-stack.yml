@@ -12,6 +12,8 @@ services:
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "./traefik:/etc/traefik/"
+    networks:
+      - "verse"
 
   mongodb:
     image: mongo
@@ -21,12 +23,16 @@ services:
       - "MONGO_INITDB_DATABASE=demo"
     volumes:
       - "mongo-data:/data/db"
+    networks:
+      - "verse"
 
   web:
     image: daongocthanh/demo-web:1.0.1
     build: web
     deploy:
       replicas: 1
+    networks:
+      - "verse"
     labels:
       - "traefik.enable=true"
       - "traefik.frontend.rule=Host:web.awesome-domain.tk"
@@ -37,6 +43,8 @@ services:
     build: server
     deploy:
       replicas: 1
+    networks:
+      - "verse"
     labels:
       - "traefik.enable=true"
       - "traefik.frontend.rule=Host:server.awesome-domain.tk"
@@ -44,3 +52,7 @@ services:
 
 volumes:
   mongo-data:
+
+networks:
+  verse:
+    driver: overlay
