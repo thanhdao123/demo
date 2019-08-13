@@ -39,7 +39,7 @@ services:
       - "traefik.port=3000"
 
   server:
-    image: daongocthanh/demo-server:1.0.1
+    image: daongocthanh/demo-server:1.0.2
     build: server
     deploy:
       replicas: 1
