@@ -12,7 +12,7 @@ services:
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "./traefik:/etc/traefik/"
-    networks:
+    networks:8080
       - "verse"
 
   mongodb:
@@ -27,7 +27,7 @@ services:
       - "verse"
 
   web:
-    image: daongocthanh/demo-web:1.0.1
+    image: daongocthanh/demo-web:1.0.2
     build: web
     deploy:
       replicas: 1
