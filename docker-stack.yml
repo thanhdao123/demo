@@ -42,3 +42,6 @@ services:
       - "traefik.enable=true"
       - "traefik.frontend.rule=Host:server.awesome-domain.tk"
       - "traefik.port=8000"
+
+volumes:
+  mongo-data:
