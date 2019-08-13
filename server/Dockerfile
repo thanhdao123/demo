@@ -1,14 +1,13 @@
-FROM node:alpine
-
-ARG NODE_ENV=production
-ENV NODE_ENV $NODE_ENV
+FROM node:10-alpine as builder
 
 WORKDIR /app
 
-COPY package.json package.json
+COPY package.json yarn.lock ./
 
-RUN yarn install --production
+RUN yarn install
 
 COPY . .
+
+RUN yarn build
 
 CMD ["yarn", "start"]

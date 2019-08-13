@@ -4,8 +4,9 @@
   "description": "server for database lab web shop",
   "main": "src/server.js",
   "scripts": {
+    "build": "babel src --out-dir dist",
     "dev": "nodemon --exec babel-node src/server.js",
-    "start": "babel-node src/server.js"
+    "start": "node dist/server.js"
   },
   "author": "Đào Ngọc Thành",
   "license": "ISC",
