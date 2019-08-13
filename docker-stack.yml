@@ -1,0 +1,44 @@
+version: "3"
+
+services:
+  traefik:
+    image: traefik:1.7
+    deploy:
+      replicas: 1
+    ports:
+      - "80:80"
+      - "8080:8080"
+      - "443:443"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./traefik:/etc/traefik/"
+
+  mongodb:
+    image: daongocthanh/demo-mongo
+    build: mongo
+    environment:
+      - "MONGO_INITDB_ROOT_USERNAME=root"
+      - "MONGO_INITDB_ROOT_PASSWORD=root_pw"
+      - "MONGO_INITDB_DATABASE=demo"
+    volumes:
+      - "mongo-data:/data/db"
+
+  web:
+    image: daongocthanh/demo-web
+    build: web
+    deploy:
+      replicas: 1
+    labels:
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:web.awesome-domain.tk"
+      - "traefik.port=3000"
+
+  server:
+    image: daongocthanh/demo-server
+    build: server
+    deploy:
+      replicas: 1
+    labels:
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:server.awesome-domain.tk"
+      - "traefik.port=8000"

@@ -9,7 +9,6 @@ const stagingConfig = {
 };
 
 function getConfig() {
-  console.log(process.env);
   switch (process.env.REACT_APP_STATE) {
     case "DEV":
       return devConfig;

@@ -1,21 +1,9 @@
-import { ApolloServer, gql, PubSub } from "apollo-server";
+import { ApolloServer, gql, PubSub } from "apollo-server-express";
 
 const pubsub = new PubSub();
 
-const books = [
-  {
-    title: "Harry Potter and the Chamber of Secrets",
-    author: "J.K. Rowling"
-  },
-  {
-    title: "Jurassic Park",
-    author: "Michael Crichton"
-  }
-];
-
 const typeDefs = gql`
   type Query {
-    books: [Book]
     posts: [Post]
   }
 
@@ -30,11 +18,6 @@ const typeDefs = gql`
   type Post {
     author: String
     comment: String
-  }
-
-  type Book {
-    title: String
-    author: String
   }
 `;
 
@@ -54,7 +37,6 @@ const postController = makePostController();
 
 const resolvers = {
   Query: {
-    books: () => books,
     posts: () => postController.posts()
   },
   Mutation: {

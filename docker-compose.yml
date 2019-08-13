@@ -1,26 +1,59 @@
-version: "3"
+version: "3.5"
 
 services:
   traefik:
-    image: traefik:1.7
+    image: traefik:1.7-alpine
     ports:
       - "80:80"
-      - "8080:8080"
+      - "8086:8080"
       - "443:443"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
-      - "./traefik:/etc/traefik/"
+      - "./traefik/traefik.dev.toml:/etc/traefik/traefik.toml"
 
   web:
-    build: web
+    image: daongocthanh/demo-web
+    build:
+      context: web
+      dockerfile: Dockerfile.dev
+    volumes:
+      - "/app/node_modules"
+      - "./web:/app"
     labels:
       - "traefik.enable=true"
-      - "traefik.frontend.rule=Host:awesome-domain.tk"
+      - "traefik.frontend.rule=Host:web.docker.localhost"
       - "traefik.port=3000"
 
   server:
-    build: server
+    image: daongocthanh/demo-server
+    build:
+      context: server
+      dockerfile: Dockerfile.dev
+    volumes:
+      - "/app/node_modules"
+      - "./server:/app"
     labels:
       - "traefik.enable=true"
-      - "traefik.frontend.rule=Host:awesome-domain.tk;PathPrefixStrip:/server"
+      - "traefik.frontend.rule=Host:server.docker.localhost"
       - "traefik.port=8000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://server.docker.localhost/healthz"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  mongodb:
+    image: daongocthanh/demo-mongo
+    build: mongo
+    ports:
+      - "27017:27017"
+    environment:
+      - "MONGO_INITDB_ROOT_USERNAME=root"
+      - "MONGO_INITDB_ROOT_PASSWORD=root_pw"
+      - "MONGO_INITDB_DATABASE=demo"
+    volumes:
+      - "mongo-data:/data/db"
+
+volumes:
+  mongo-data:
