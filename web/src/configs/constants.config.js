@@ -4,7 +4,7 @@ const devConfig = {
 };
 
 const stagingConfig = {
-  apolloHttpLinkURI: "http://server.awesome-domain.tk/graphql",
+  apolloHttpLinkURI: "https://server.awesome-domain.tk/graphql",
   apolloWsLinkURI: "wss://server.awesome-domain.tk/graphql"
 };
 
