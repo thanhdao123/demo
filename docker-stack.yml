@@ -12,7 +12,7 @@ services:
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "./traefik:/etc/traefik/"
-    networks:8080
+    networks:
       - "verse"
 
   mongodb:
