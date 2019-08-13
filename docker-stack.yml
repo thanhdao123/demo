@@ -14,8 +14,7 @@ services:
       - "./traefik:/etc/traefik/"
 
   mongodb:
-    image: daongocthanh/demo-mongo
-    build: mongo
+    image: mongo
     environment:
       - "MONGO_INITDB_ROOT_USERNAME=root"
       - "MONGO_INITDB_ROOT_PASSWORD=root_pw"
@@ -24,7 +23,7 @@ services:
       - "mongo-data:/data/db"
 
   web:
-    image: daongocthanh/demo-web
+    image: daongocthanh/demo-web:1.0.0
     build: web
     deploy:
       replicas: 1
@@ -34,7 +33,7 @@ services:
       - "traefik.port=3000"
 
   server:
-    image: daongocthanh/demo-server
+    image: daongocthanh/demo-server:1.0.0
     build: server
     deploy:
       replicas: 1
