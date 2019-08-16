@@ -1,7 +1,7 @@
 import http from "http";
 import { port } from "configs/constants.config";
 
-import setupApolloServer from "setup/apolloServer.setup";
+import setupApolloServer from "setup/apollo";
 import setupExpress from "setup/express";
 
 function startServer() {
