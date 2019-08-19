@@ -4,9 +4,8 @@ import { Provider } from "react-redux";
 import { applyMiddleware, createStore } from "redux";
 import createReducer from "app/store/reducers";
 import thunk from "redux-thunk";
-import logger from "redux-logger";
 
-const store = createStore(createReducer(), applyMiddleware(thunk, logger));
+const store = createStore(createReducer(), applyMiddleware(thunk));
 
 store.asyncReducers = {};
 
