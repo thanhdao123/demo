@@ -1,4 +1,5 @@
 import { PubSub } from "apollo-server-express";
+import * as postDB from "db/data-access/postDB";
 
 const pubsub = new PubSub();
 
@@ -21,9 +22,10 @@ export const Query = {
 };
 
 export const Mutation = {
-  addPost(_, post) {
+  async addPost(_, { title }) {
+    const post = await postDB.addPost({ title });
     pubsub.publish(POST_ADDED, { postAdded: post });
-    return postController.addPost(post);
+    return post;
   }
 };
 

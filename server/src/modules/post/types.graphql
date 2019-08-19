@@ -3,7 +3,7 @@ type Query {
 }
 
 type Mutation {
-  addPost(author: String, comment: String): Post
+  addPost(title: String): Post
 }
 
 type Subscription {
@@ -11,6 +11,6 @@ type Subscription {
 }
 
 type Post {
-  author: String
-  comment: String
+  title: String
+  ts: Date
 }

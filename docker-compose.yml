@@ -18,7 +18,7 @@ services:
     environment:
       - "MONGO_INITDB_ROOT_USERNAME=root"
       - "MONGO_INITDB_ROOT_PASSWORD=root_pw"
-      - "MONGO_INITDB_DATABASE=demo"
+      - "MONGO_INITDB_DATABASE=admin"
     volumes:
       - "mongo-data:/data/db"
 
