@@ -27,7 +27,7 @@ services:
       - "verse"
 
   web:
-    image: daongocthanh/demo-web:1.0.2
+    image: daongocthanh/demo-web:1.0.3
     build: web
     deploy:
       replicas: 1
@@ -39,7 +39,7 @@ services:
       - "traefik.port=3000"
 
   server:
-    image: daongocthanh/demo-server:1.0.2
+    image: daongocthanh/demo-server:1.0.4
     build: server
     deploy:
       replicas: 1

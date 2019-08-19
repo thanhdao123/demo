@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: server
-          image: daongocthanh/demo-server:1.0.2
+          image: daongocthanh/demo-server:1.0.4
           ports:
             - containerPort: 8000

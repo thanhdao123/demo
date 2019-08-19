@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: web
-          image: daongocthanh/demo-web:1.0.2
+          image: daongocthanh/demo-web:1.0.3
           ports:
             - containerPort: 3000
