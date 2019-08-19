@@ -1,10 +1,16 @@
 import PostModel from "db/models/post.model";
 
-import getRandomDate from "utils/get-random-date";
+import getRandomDate from "utils/date-time/get-random-date";
 
-export function addPost(title = "") {
-  return PostModel.create({
+export function addPost({ title = "" }) {
+  const post = new PostModel({
     title,
-    ts: getRandomDate()
+    ts: getRandomDate(new Date(2019, 8, 10), new Date())
   });
+  post.save();
+  return post;
+}
+
+export function getAllPosts() {
+  return PostModel.find({});
 }
