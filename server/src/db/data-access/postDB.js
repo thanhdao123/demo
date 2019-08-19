@@ -12,5 +12,5 @@ export function addPost({ title = "" }) {
 }
 
 export function getAllPosts() {
-  return PostModel.find({});
+  return PostModel.aggregate([{ $match: {} }]);
 }

@@ -5,6 +5,7 @@ import moment from "moment";
 const POST_QUERY = gql`
   query {
     posts {
+      title
       ts
     }
   }
@@ -15,8 +16,10 @@ export default function usePostData() {
 
   if (error || loading) return;
 
-  const dates = data.posts.map(date =>
-    moment(date.ts).format("D/M/YYYY-HH:mm:ss")
-  );
+  const dates = data.posts.map(post => ({
+    ...post,
+    ts: moment(post.ts).format("D/M/YYYY-HH:mm:ss")
+  }));
+  console.log(data.posts);
   console.log(dates);
 }
