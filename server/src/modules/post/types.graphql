@@ -1,12 +1,12 @@
-type Query {
+extend type Query {
   posts: [Post]
 }
 
-type Mutation {
+extend type Mutation {
   addPost(author: String, comment: String): Post
 }
 
-type Subscription {
+extend type Subscription {
   postAdded: Post
 }
 

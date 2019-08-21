@@ -10,7 +10,7 @@ function Layout() {
         <button
           className="border border-dashed border-black p-4 my-4"
           children="DISPLAY NOTIFICATION okok"
-          onClick={() => console.log("okko")}
+          onClick={() => console.log("okok")}
         />
       </div>
     </div>
