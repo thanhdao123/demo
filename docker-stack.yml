@@ -2,7 +2,7 @@ version: "3"
 
 services:
   traefik:
-    image: traefik:1.7
+    image: traefik:1.7-alpine
     deploy:
       replicas: 1
     ports:
@@ -49,6 +49,14 @@ services:
       - "traefik.enable=true"
       - "traefik.frontend.rule=Host:server.awesome-domain.tk"
       - "traefik.port=8000"
+
+  worker:
+    image: daongocthanh/demo-worker:1.0.4
+    build: worker
+    deploy:
+      replicas: 1
+    networks:
+      - "verse"
 
 volumes:
   mongo-data:

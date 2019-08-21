@@ -11,6 +11,17 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "./traefik/traefik.dev.toml:/etc/traefik/traefik.toml"
 
+  rabbit:
+    image: "rabbitmq:3-management"
+    hostname: "rabbitmq"
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "H1hK3rDP1qySM7UH"
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    ports:
+      - "15678:15672"
+
   mongodb:
     image: mongo
     ports:
@@ -45,6 +56,13 @@ services:
       - "traefik.enable=true"
       - "traefik.frontend.rule=Host:server.docker.localhost"
       - "traefik.port=8000"
+
+  worker:
+    build:
+      context: worker
+      dockerfile: Dockerfile.dev
+    volumes:
+      - "./worker:/app"
 
 volumes:
   mongo-data:

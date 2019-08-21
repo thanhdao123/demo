@@ -1,0 +1,29 @@
+{
+  "name": "worker",
+  "version": "1.0.0",
+  "description": "app worker",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "nodemon --experimental-modules src/index.mjs",
+    "start": "node --experimental-modules src/index.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "none"
+  },
+  "keywords": [
+    "app",
+    "worker"
+  ],
+  "author": "thanhdao",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1",
+    "eslint": "^6.2.1",
+    "eslint-config-node": "^4.0.0",
+    "eslint-plugin-import": "^2.18.2"
+  }
+}
