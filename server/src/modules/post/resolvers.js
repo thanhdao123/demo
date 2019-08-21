@@ -1,29 +1,21 @@
 import { PubSub } from "apollo-server-express";
+import * as postDB from "db/data-access/postDB";
 
 const pubsub = new PubSub();
 
 const POST_ADDED = "POST_ADDED";
-function makePostController() {
-  const posts = [];
-
-  return {
-    posts: () => posts,
-    addPost: post => {
-      posts.push(post);
-      return post;
-    }
-  };
-}
-const postController = makePostController();
 
 export const Query = {
-  posts: () => postController.posts()
+  posts() {
+    return postDB.getAllPosts();
+  }
 };
 
 export const Mutation = {
-  addPost(_, post) {
-    pubsub.publish(POST_ADDED, { postAdded: post });
-    return postController.addPost(post);
+  async addPost(_, { title }) {
+    const postAdded = await postDB.addPost({ title });
+    pubsub.publish([POST_ADDED], { postAdded });
+    return postAdded;
   }
 };
 

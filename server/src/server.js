@@ -3,12 +3,14 @@ import { port } from "configs/constants.config";
 
 import setupApolloServer from "setup/apollo";
 import setupExpress from "setup/express";
+import connectDb from "db/connectDB";
 
-function startServer() {
+async function startServer() {
   const app = setupExpress();
   const httpServer = http.createServer(app);
   const server = setupApolloServer();
 
+  await connectDb();
   server.applyMiddleware({ app });
   server.installSubscriptionHandlers(httpServer);
 
