@@ -35,7 +35,7 @@ services:
       - "verse"
     labels:
       - "traefik.enable=true"
-      - "traefik.frontend.rule=Host:web.awesome-domain.tk"
+      - "traefik.frontend.rule=Host:web.docker.localhost"
       - "traefik.port=3000"
 
   server:
@@ -47,14 +47,14 @@ services:
       - "verse"
     labels:
       - "traefik.enable=true"
-      - "traefik.frontend.rule=Host:server.awesome-domain.tk"
+      - "traefik.frontend.rule=Host:server.docker.localhost"
       - "traefik.port=8000"
 
   worker:
     image: daongocthanh/demo-worker:1.0.4
     build: worker
     deploy:
-      replicas: 1
+      replicas: 3
     networks:
       - "verse"
 

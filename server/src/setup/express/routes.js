@@ -1,11 +1,19 @@
 import express from "express";
+import * as rabbitServices from "services/rabbit.services";
 
 const router = express.Router();
 
-router.get("/healthz", healthCheck);
+router.get("/healthz", healthCheckController);
+router.get("/new-task", newTaskController);
 
-function healthCheck(_, res) {
+function healthCheckController(_, res) {
   res.send({ message: "I'm Healthy!" });
+}
+
+async function newTaskController(_, res) {
+  const message = "okok";
+  await rabbitServices.publishTask(message);
+  res.send({ message: "A Task is sent to Queue" });
 }
 
 export default router;

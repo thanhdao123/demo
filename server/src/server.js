@@ -3,16 +3,18 @@ import { port } from "configs/constants.config";
 
 import setupApolloServer from "setup/apollo";
 import setupExpress from "setup/express";
-import connectDb from "db/connectDB";
+import connectDB from "db/connectDB";
+import { connectRabbitMQ } from "services/rabbit.services";
 
 async function startServer() {
   const app = setupExpress();
   const httpServer = http.createServer(app);
   const server = setupApolloServer();
-
-  await connectDb();
   server.applyMiddleware({ app });
   server.installSubscriptionHandlers(httpServer);
+
+  await connectDB();
+  await connectRabbitMQ();
 
   httpServer.listen({ port }, () => {
     console.log("#################################################");
