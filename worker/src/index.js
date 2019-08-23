@@ -1,8 +1,8 @@
-const rabbitServices = require("rabbit.services");
+const sharpServices = require("sharp.services");
 
 async function startServer() {
-  await rabbitServices.connectRabbitMQ();
-  await rabbitServices.startConsumer();
+  sharpServices.run();
+  console.log("okok");
 }
 
 startServer();

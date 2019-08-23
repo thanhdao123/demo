@@ -54,7 +54,7 @@ services:
     image: daongocthanh/demo-worker:1.0.4
     build: worker
     deploy:
-      replicas: 3
+      replicas: 1
     networks:
       - "verse"
 
