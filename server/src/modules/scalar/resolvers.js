@@ -1,3 +1,5 @@
-import { GraphQLDateTime } from "graphql-iso-date";
+const { GraphQLDateTime } = require("graphql-iso-date");
 
-export const Date = GraphQLDateTime;
+const Date = GraphQLDateTime;
+
+module.exports = { Date };

@@ -1,9 +1,9 @@
-import amqp from "amqplib";
+const amqp = require("amqplib");
 
 let channel = null;
 const QUEUE = "image-queue";
 
-export async function connectRabbitMQ() {
+async function connectRabbitMQ() {
   const conn = await amqp.connect(`amqp://rabbit`);
   const ch = await conn.createChannel();
 
@@ -14,9 +14,13 @@ export async function connectRabbitMQ() {
   channel = ch;
 }
 
-export async function publishTask(message) {
+async function publishTask(message) {
   await channel.sendToQueue(QUEUE, Buffer.from(message), {
     persistent: true
   });
   console.log(" [P] a NEW messge sent to |%s|", QUEUE);
 }
+
+const rabbitServices = Object.freeze({ connectRabbitMQ, publishTask });
+
+module.exports = rabbitServices;

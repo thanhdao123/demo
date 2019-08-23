@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 mongoose.Promise = Promise;
 
@@ -22,7 +22,7 @@ mongoose.connection.on("error", error => {
   console.log("ERROR: " + error);
 });
 
-export default async function connectDB() {
+async function connectDB() {
   return mongoose
     .connect("mongodb://root:root_pw@mongodb:27017/admin", {
       useNewUrlParser: true,
@@ -33,3 +33,5 @@ export default async function connectDB() {
     })
     .catch(console.log);
 }
+
+module.exports = connectDB;

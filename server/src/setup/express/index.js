@@ -1,11 +1,11 @@
-import express from "express";
+const express = require("express");
 
-import cors from "cors";
-import morgan from "morgan";
+const cors = require("cors");
+const morgan = require("morgan");
 
-import routes from "setup/express/routes";
+const routes = require("setup/express/routes");
 
-export default function setupExpress() {
+function setupExpress() {
   const app = express();
 
   app.use(cors());
@@ -15,3 +15,5 @@ export default function setupExpress() {
 
   return app;
 }
+
+module.exports = setupExpress;

@@ -1,8 +1,8 @@
-import PostModel from "db/models/post.model";
+const PostModel = require("db/models/post.model");
 
-import getRandomDate from "utils/date-time/get-random-date";
+const getRandomDate = require("utils/date-time/get-random-date");
 
-export function addPost({ title = "" }) {
+function addPost({ title = "" }) {
   const post = new PostModel({
     title,
     ts: getRandomDate(new Date(2019, 8, 10), new Date())
@@ -11,6 +11,10 @@ export function addPost({ title = "" }) {
   return post;
 }
 
-export function getAllPosts() {
+function getAllPosts() {
   return PostModel.aggregate([{ $match: {} }]);
 }
+
+const PostDB = Object.freeze({ addPost, getAllPosts });
+
+module.exports = PostDB;

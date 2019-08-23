@@ -1,8 +1,7 @@
-const sharpServices = require("sharp.services");
+const { run } = require("sharp.services");
 
 async function startServer() {
-  sharpServices.run();
-  console.log("okok");
+  run();
 }
 
 startServer();

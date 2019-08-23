@@ -1,10 +1,10 @@
-import http from "http";
-import { port } from "configs/constants.config";
+const http = require("http");
+const { port } = require("configs/constants.config");
 
-import setupApolloServer from "setup/apollo";
-import setupExpress from "setup/express";
-import connectDB from "db/connectDB";
-import { connectRabbitMQ } from "services/rabbit.services";
+const setupApolloServer = require("setup/apollo");
+const setupExpress = require("setup/express");
+const connectDB = require("db/connectDB");
+const { connectRabbitMQ } = require("services/rabbit.services");
 
 async function startServer() {
   const app = setupExpress();

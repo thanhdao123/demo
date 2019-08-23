@@ -1,8 +1,8 @@
-import { Schema, model } from "mongoose";
+const { Schema, model } = require("mongoose");
 
 const PostSchema = new Schema({
   title: String,
   ts: Date
 });
 
-export default model("Post", PostSchema);
+module.exports = model("Post", PostSchema);

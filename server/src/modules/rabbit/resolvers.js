@@ -1,8 +1,10 @@
-import * as rabbitServices from "services/rabbit.services";
+const rabbitServices = require("services/rabbit.services");
 
-export const Mutation = {
+const Mutation = {
   async publishTask(_, { message }) {
     await rabbitServices.publishTask(message);
     return true;
   }
 };
+
+module.exports = { Mutation };

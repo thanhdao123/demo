@@ -1,5 +1,5 @@
-import express from "express";
-import * as rabbitServices from "services/rabbit.services";
+const express = require("express");
+const rabbitServices = require("services/rabbit.services");
 
 const router = express.Router();
 
@@ -16,4 +16,4 @@ async function newTaskController(_, res) {
   res.send({ message: "A Task is sent to Queue" });
 }
 
-export default router;
+module.exports = router;

@@ -1,8 +1,10 @@
-import { ApolloServer } from "apollo-server-express";
-import typeDefs from "setup/apollo/typeDefs";
-import resolvers from "setup/apollo/resolvers";
+const { ApolloServer } = require("apollo-server-express");
+const typeDefs = require("setup/apollo/typeDefs");
+const resolvers = require("setup/apollo/resolvers");
 
-export default function setupApolloServer() {
+function setupApolloServer() {
   const server = new ApolloServer({ typeDefs, resolvers });
   return server;
 }
+
+module.exports = setupApolloServer;
