@@ -23,15 +23,13 @@ mongoose.connection.on("error", error => {
 });
 
 async function connectDB() {
-  return mongoose
-    .connect("mongodb://root:root_pw@mongodb:27017/admin", {
-      useNewUrlParser: true,
-      autoReconnect: true,
-      useFindAndModify: false,
-      reconnectTries: 1000000,
-      reconnectInterval: 3000
-    })
-    .catch(console.log);
+  return mongoose.connect("mongodb://root:root_password@mongodb:27017/admin", {
+    useNewUrlParser: true,
+    autoReconnect: true,
+    useFindAndModify: false,
+    reconnectTries: 1000000,
+    reconnectInterval: 3000
+  });
 }
 
 module.exports = connectDB;

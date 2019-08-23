@@ -1,28 +1,24 @@
 const { PubSub } = require("apollo-server-express");
-const postDB = require("db/data-access/postDB");
+const PostDB = require("db/data-access/PostDB");
 
 const pubsub = new PubSub();
 
 const POST_ADDED = "POST_ADDED";
 
-const Query = {
-  posts() {
-    return postDB.getAllPosts();
-  }
+exports.Query = {
+  posts: () => PostDB.getAllPosts()
 };
 
-const Mutation = {
-  async addPost(_, { title }) {
-    const postAdded = await postDB.addPost({ title });
+exports.Mutation = {
+  addPost: async (_, { title }) => {
+    const postAdded = await PostDB.addPost({ title });
     pubsub.publish([POST_ADDED], { postAdded });
     return postAdded;
   }
 };
 
-const Subscription = {
+exports.Subscription = {
   postAdded: {
     subscribe: () => pubsub.asyncIterator([POST_ADDED])
   }
 };
-
-module.exports = { Query, Mutation, Subscription };

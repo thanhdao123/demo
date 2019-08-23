@@ -7,12 +7,12 @@ function addPost({ title = "" }) {
     title,
     ts: getRandomDate(new Date(2019, 8, 10), new Date())
   });
-  post.save();
+  post.save().then(console.log);
   return post;
 }
 
-function getAllPosts() {
-  return PostModel.aggregate([{ $match: {} }]);
+async function getAllPosts() {
+  return await PostModel.find({});
 }
 
 const PostDB = Object.freeze({ addPost, getAllPosts });

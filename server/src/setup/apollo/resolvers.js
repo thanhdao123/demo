@@ -5,4 +5,4 @@ const resolversArray = fileLoader(
   path.join(__dirname, "../../modules/**/*.js")
 );
 
-module.export = mergeResolvers(resolversArray);
+module.exports = mergeResolvers(resolversArray);

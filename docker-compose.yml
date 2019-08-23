@@ -28,7 +28,7 @@ services:
       - "27017:27017"
     environment:
       - "MONGO_INITDB_ROOT_USERNAME=root"
-      - "MONGO_INITDB_ROOT_PASSWORD=root_pw"
+      - "MONGO_INITDB_ROOT_PASSWORD=root_password"
       - "MONGO_INITDB_DATABASE=admin"
     volumes:
       - "mongo-data:/data/db"
