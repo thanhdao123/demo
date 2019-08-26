@@ -1,0 +1,17 @@
+sudo: required
+
+services:
+  - docker
+
+env:
+  global:
+    - SHA=$(git rev-parse HEAD)
+
+before_install:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
+deploy:
+  on:
+    branch: production
+  provider: script
+  script: bash ./deploy.sh
