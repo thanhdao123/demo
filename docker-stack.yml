@@ -1,6 +1,15 @@
 version: "3"
 
 services:
+  viz:
+    image: bretfisher/visualizer
+    ports:
+      - "8081:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      replicas: 1
+
   traefik:
     image: traefik:1.7-alpine
     deploy:
@@ -11,7 +20,20 @@ services:
       - "443:443"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
-      - "./traefik:/etc/traefik/"
+      - "./traefik/traefik.toml:/etc/traefik/traefik.toml"
+    networks:
+      - "verse"
+
+  rabbit:
+    image: "rabbitmq:3-management"
+    hostname: "rabbitmq"
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "H1hK3rDP1qySM7UH"
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    ports:
+      - "15678:15672"
     networks:
       - "verse"
 
@@ -27,31 +49,35 @@ services:
       - "verse"
 
   web:
-    image: daongocthanh/demo-web:1.0.3
+    image: daongocthanh/demo-web:1.0.7
     build: web
+    ports:
+      - "3000:3000"
     deploy:
       replicas: 1
+      labels:
+        - "traefik.enable=true"
+        - "traefik.frontend.rule=Host:web.docker.localhost"
+        - "traefik.port=3000"
     networks:
       - "verse"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.frontend.rule=Host:web.docker.localhost"
-      - "traefik.port=3000"
 
   server:
-    image: daongocthanh/demo-server:1.0.4
+    image: daongocthanh/demo-server:1.0.6
     build: server
+    ports:
+      - "8000:8000"
     deploy:
       replicas: 1
+      labels:
+        - "traefik.enable=true"
+        - "traefik.frontend.rule=Host:server.docker.localhost"
+        - "traefik.port=8000"
     networks:
       - "verse"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.frontend.rule=Host:server.docker.localhost"
-      - "traefik.port=8000"
 
   worker:
-    image: daongocthanh/demo-worker:1.0.4
+    image: daongocthanh/demo-worker:1.0.6
     build: worker
     deploy:
       replicas: 1
