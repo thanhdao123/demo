@@ -1,27 +1,16 @@
 {
-  "name": "worker",
+  "name": "server-rest",
   "version": "1.0.0",
-  "description": "app worker",
   "main": "src/index.js",
-  "scripts": {
-    "dev": "NODE_PATH=src nodemon src/index.js",
-    "start": "NODE_PATH=src node src/index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "none"
-  },
-  "keywords": [
-    "app",
-    "worker"
-  ],
   "author": "thanhdao",
   "license": "ISC",
+  "scripts": {
+    "dev": "NODE_PATH=src nodemon src/index.js",
+    "start": "NODE_PATH=src node src/index.js",
+    "debug": "NODE_PATH=src nodemon --inspect-brk src/index.js"
+  },
   "dependencies": {
-    "amqplib": "^0.5.5",
-    "express": "^4.17.1",
-    "request": "^2.88.0",
-    "sharp": "^0.23.0"
+    "express": "^4.17.1"
   },
   "devDependencies": {
     "eslint": "^6.2.1",

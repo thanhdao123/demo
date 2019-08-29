@@ -1,0 +1,19 @@
+{
+  "env": { "node": true },
+  "plugins": ["import"],
+  "extends": ["node"],
+  "rules": {
+    "no-console": 0,
+    "import/prefer-default-export": 0,
+    "import/no-nodejs-modules": 0,
+    "import/no-commonjs": 0,
+    "import/no-namespace": 0
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"]
+      }
+    }
+  }
+}

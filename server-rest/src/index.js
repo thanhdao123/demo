@@ -1,10 +1,10 @@
-const imageServices = require("image.services");
-const rabbitServics = require("rabbit.services");
+const express = require("express");
 
 async function startServer() {
-  // await rabbitServics.connectRabbitMQ();
-  // rabbitServics.startConsumer();
-  console.log("Worker is running ....");
+  const app = express();
+  app.listen(4000, () => {
+    console.log(" SERVER-REST is running on port 4000");
+  });
 }
 
 startServer();
