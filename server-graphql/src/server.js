@@ -7,11 +7,11 @@ const connectDB = require("db/connectDB");
 const { connectRabbitMQ } = require("services/rabbit.services");
 
 async function startServer() {
-  const app = setupExpress();
-  const httpServer = http.createServer(app);
-  const server = setupApolloServer();
-  server.applyMiddleware({ app });
-  server.installSubscriptionHandlers(httpServer);
+  const expressApp = setupExpress();
+  const httpServer = http.createServer(expressApp);
+  const apolloServer = setupApolloServer();
+  apolloServer.applyMiddleware({ app: expressApp });
+  apolloServer.installSubscriptionHandlers(httpServer);
 
   await connectDB();
   await connectRabbitMQ();

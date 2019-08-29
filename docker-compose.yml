@@ -46,10 +46,10 @@ services:
 
   server:
     build:
-      context: server
+      context: server-graphql
       dockerfile: Dockerfile.dev
     volumes:
-      - "./server:/app"
+      - "./server-graphql:/app"
     ports:
       - "8000:8000"
     labels:

@@ -63,8 +63,8 @@ services:
       - "verse"
 
   server:
-    image: daongocthanh/demo-server
-    build: server
+    image: daongocthanh/demo-server-graphql
+    build: server-graphql
     ports:
       - "8000:8000"
     deploy:
