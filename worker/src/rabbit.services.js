@@ -1,12 +1,25 @@
 const amqp = require("amqplib");
 
 function setup() {
+  const QUEUE = "upload-photo-moderation";
+  const connectionString = {
+    protocol: "amqp",
+    hostname: "54.38.40.255",
+    port: 5672,
+    username: "moderation",
+    password: "BwNtc3e3ZcNVEsfS",
+    frameMax: 0,
+    heartbeat: 0,
+    vhost: "/"
+  };
+
   let channel = null;
-  const QUEUE = "image-queue";
 
   async function connectRabbitMQ() {
-    const conn = await amqp.connect(`amqp://rabbit`);
+    const conn = await amqp.connect(connectionString);
     const ch = await conn.createChannel();
+
+    ch.prefetch(1);
 
     await ch.assertQueue(QUEUE, { durable: true });
 
@@ -18,7 +31,7 @@ function setup() {
   }
 
   async function getChannel() {
-    return channel && (await connectRabbitMQ());
+    return channel || (await connectRabbitMQ());
   }
 
   return { QUEUE, connectRabbitMQ, getChannel };
@@ -34,13 +47,8 @@ async function startConsumer() {
   });
 
   function consumer(message) {
-    console.log(" [C] recieved a Task");
-    setTimeout(() => finshTask(message), 3000);
-  }
-
-  function finshTask(message) {
-    console.log(" [C] finished a Task");
-    channel.ack(message);
+    const o = JSON.parse(message.content.toString());
+    console.log(" [C] recieved a Task: ", o);
   }
 }
 

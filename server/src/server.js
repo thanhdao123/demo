@@ -1,8 +1,8 @@
 const http = require("http");
 const { port } = require("configs/constants.config");
 
-const setupApolloServer = require("setup/apollo");
-const setupExpress = require("setup/express");
+const setupApolloServer = require("app-apollo/setup");
+const setupExpress = require("app-express/setup");
 const connectDB = require("db/connectDB");
 const { connectRabbitMQ } = require("services/rabbit.services");
 
