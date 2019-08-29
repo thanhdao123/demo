@@ -1,26 +1,26 @@
 version: "3.5"
 
 services:
-  traefik:
-    image: traefik:1.7-alpine
-    ports:
-      - "80:80"
-      - "8086:8080"
-      - "443:443"
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
-      - "./traefik/traefik.dev.toml:/etc/traefik/traefik.toml"
+  # traefik:
+  #   image: traefik:1.7-alpine
+  #   ports:
+  #     - "80:80"
+  #     - "8086:8080"
+  #     - "443:443"
+  #   volumes:
+  #     - "/var/run/docker.sock:/var/run/docker.sock"
+  #     - "./traefik/traefik.dev.toml:/etc/traefik/traefik.toml"
 
-  rabbit:
-    image: "rabbitmq:3-management"
-    hostname: "rabbitmq"
-    environment:
-      RABBITMQ_ERLANG_COOKIE: "H1hK3rDP1qySM7UH"
-      RABBITMQ_DEFAULT_USER: "guest"
-      RABBITMQ_DEFAULT_PASS: "guest"
-      RABBITMQ_DEFAULT_VHOST: "/"
-    ports:
-      - "15678:15672"
+  # rabbit:
+  #   image: "rabbitmq:3-management"
+  #   hostname: "rabbitmq"
+  #   environment:
+  #     RABBITMQ_ERLANG_COOKIE: "H1hK3rDP1qySM7UH"
+  #     RABBITMQ_DEFAULT_USER: "guest"
+  #     RABBITMQ_DEFAULT_PASS: "guest"
+  #     RABBITMQ_DEFAULT_VHOST: "/"
+  #   ports:
+  #     - "15678:15672"
 
   mongodb:
     image: mongo
@@ -33,36 +33,45 @@ services:
     volumes:
       - "mongo-data:/data/db"
 
-  web:
-    build:
-      context: web
-      dockerfile: Dockerfile.dev
-    volumes:
-      - "./web:/app"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.frontend.rule=Host:web.docker.localhost"
-      - "traefik.port=3000"
+  # web:
+  #   build:
+  #     context: web
+  #     dockerfile: Dockerfile.dev
+  #   volumes:
+  #     - "./web:/app"
+  #   labels:
+  #     - "traefik.enable=true"
+  #     - "traefik.frontend.rule=Host:web.docker.localhost"
+  #     - "traefik.port=3000"
 
-  server:
+  # server:
+  #   build:
+  #     context: server-graphql
+  #     dockerfile: Dockerfile.dev
+  #   volumes:
+  #     - "./server-graphql:/app"
+  #   ports:
+  #     - "8000:8000"
+  #   labels:
+  #     - "traefik.enable=true"
+  #     - "traefik.frontend.rule=Host:server.docker.localhost"
+  #     - "traefik.port=8000"
+
+  server-rest:
     build:
-      context: server-graphql
+      context: server-rest
       dockerfile: Dockerfile.dev
     volumes:
-      - "./server-graphql:/app"
+      - "./server-rest:/app"
     ports:
-      - "8000:8000"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.frontend.rule=Host:server.docker.localhost"
-      - "traefik.port=8000"
+      - "4000:4000"
 
-  worker:
-    build:
-      context: worker
-      dockerfile: Dockerfile.dev
-    volumes:
-      - "./worker:/app"
+  # worker:
+  #   build:
+  #     context: worker
+  #     dockerfile: Dockerfile.dev
+  #   volumes:
+  #     - "./worker:/app"
 
 volumes:
   mongo-data:

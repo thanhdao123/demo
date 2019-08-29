@@ -1,9 +1,15 @@
 const express = require("express");
+const loader = require("loader");
+const connectDB = require("db/connectDB");
+
+const { port } = require("configs/env.config");
 
 async function startServer() {
+  await connectDB();
   const app = express();
-  app.listen(4000, () => {
-    console.log(" SERVER-REST is running on port 4000");
+  loader(app);
+  app.listen(port, () => {
+    console.log(" SERVER-REST is running on port %d", port);
   });
 }
 
