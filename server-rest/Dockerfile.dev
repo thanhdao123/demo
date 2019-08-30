@@ -9,7 +9,7 @@ RUN apk update && apk add yarn python g++ make \
 
 WORKDIR /app
 
-COPY package.json yarn.lock ./
+COPY package.json package.json
 
 RUN yarn install
 

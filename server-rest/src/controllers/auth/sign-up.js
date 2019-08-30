@@ -6,7 +6,6 @@ function makeSignup({ UserDB }) {
       throw new Error("User already exsist!");
     }
     const user = await UserDB.saveUser(userInfo);
-    console.log(user, "okok");
     return user;
   };
 }

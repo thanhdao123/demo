@@ -2,9 +2,24 @@ POST http://localhost:4000/signup
 Content-Type: application/json
 
 {
-  "email": "jack",
+  "email": "thanhdao",
   "password": "secret"
 }
 
 ###
+POST http://localhost:4000/signin
+Content-Type: application/json
+
+{
+  "email": "thanhdao",
+  "password": "secret"
+}
+
+###
+POST http://localhost:4000/secure-route
+Content-Type: application/json
+Authorization: "Bearer eyJhbGiOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYW5oZGFvIiwiaWF0IjoxNTY3MTM2NjUwLCJleHAiOjE1NjcxNDAyNTB9.queGSFo5IWdmS154gvWKBAIBP4Zp9ql-_Xj99IbHIn0"
+
+###
 GET http://localhost:4000/healthz
+

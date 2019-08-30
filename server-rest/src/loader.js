@@ -1,4 +1,6 @@
-const passport = require("configs/passport.config");
+require("configs/passport.config");
+
+const passport = require("passport");
 const cors = require("cors");
 const morgan = require("morgan");
 const bodyParse = require("body-parser");
@@ -11,15 +13,7 @@ function loader(app) {
   app.use(bodyParse.json());
   app.use(bodyParse.urlencoded({ extended: true }));
   app.use(cookieParser());
-  app.use(
-    require("express-session")({
-      secret: "keyboard cat",
-      resave: false,
-      saveUninitialized: false
-    })
-  );
   app.use(passport.initialize());
-  app.use(passport.session());
 
   app.use(routes);
 }
