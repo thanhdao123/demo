@@ -8,8 +8,11 @@ const cookieParser = require("cookie-parser");
 const routes = require("routes");
 
 function loader(app) {
+  if (process.env.NODE_ENV !== "TEST") {
+    app.use(morgan("tiny"));
+  }
+
   app.use(cors());
-  app.use(morgan("tiny"));
   app.use(bodyParse.json());
   app.use(bodyParse.urlencoded({ extended: true }));
   app.use(cookieParser());

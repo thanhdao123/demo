@@ -5,7 +5,7 @@ function makeExpressCallback(controller) {
       .then(response => res.json(response))
       .catch(error => {
         console.log(error);
-        res.status(500).send({ message: error.message });
+        res.status(500).send({ error: error.message });
       });
   };
 }

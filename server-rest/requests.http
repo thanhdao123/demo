@@ -23,3 +23,18 @@ Authorization: "Bearer eyJhbGiOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYW5oZ
 ###
 GET http://localhost:4000/healthz
 
+
+###
+POST http://localhost:4000/book
+Content-Type: application/json
+
+{
+  "title": "The Lord of the Rings",
+  "author": "J.R.R. Tolkien",
+  "year": 1954,
+  "pages": 111
+}
+
+###
+GET http://localhost:4000/book/111
+

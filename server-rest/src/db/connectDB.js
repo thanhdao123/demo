@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { mongooseURI } = require("configs/env.config");
 
 mongoose.Promise = Promise;
 
@@ -23,12 +24,11 @@ mongoose.connection.on("error", error => {
 });
 
 async function connectDB() {
-  return mongoose.connect("mongodb://root:root_password@mongodb:27017/admin", {
+  return mongoose.connect(mongooseURI, {
     useNewUrlParser: true,
     autoReconnect: true,
     useFindAndModify: false,
-    reconnectTries: 1000000,
-    reconnectInterval: 3000
+    useCreateIndex: true
   });
 }
 
