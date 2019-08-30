@@ -1,13 +1,10 @@
-POST http://localhost:4000/login
+POST http://localhost:4000/signup
 Content-Type: application/json
 
 {
-  "username": "jack",
+  "email": "jack",
   "password": "secret"
 }
 
 ###
 GET http://localhost:4000/healthz
-
-###
-GET http://localhost:4000/secure-data

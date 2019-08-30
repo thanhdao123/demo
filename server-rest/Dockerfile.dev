@@ -9,4 +9,8 @@ RUN apk update && apk add yarn python g++ make \
 
 WORKDIR /app
 
+COPY package.json yarn.lock ./
+
+RUN yarn install
+
 CMD ["sh", "-c", "dockerize -wait tcp://mongodb:27017 && yarn dev"]

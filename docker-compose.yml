@@ -63,6 +63,7 @@ services:
       dockerfile: Dockerfile.dev
     volumes:
       - "./server-rest:/app"
+      - "/app/node_modules"
     ports:
       - "4000:4000"
 

@@ -1,4 +1,4 @@
-const bcrybt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const { Schema, model } = require("mongoose");
 
 const UserSchema = new Schema({
@@ -15,14 +15,14 @@ const UserSchema = new Schema({
 
 UserSchema.pre("save", async function(next) {
   const user = this;
-  const hash = await bcrybt(user.password, 5);
+  const hash = await bcrypt(user.password, 5);
   this.password = hash;
   next();
 });
 
 UserSchema.methods.isValidPassword = async function(password) {
   const user = this;
-  const compare = await bcrybt.compare(password, user.password);
+  const compare = await bcrypt.compare(password, user.password);
   return compare;
 };
 
