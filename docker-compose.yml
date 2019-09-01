@@ -55,15 +55,15 @@ services:
   #     - "traefik.enable=true"
   #     - "traefik.frontend.rule=Host:server.docker.localhost"
   #     - "traefik.port=8000"
-  server-rest:
-    build:
-      context: server-rest
-      dockerfile: Dockerfile.dev
-    volumes:
-      - "./server-rest:/app"
-      - "/app/node_modules"
-    ports:
-      - "4000:4000"
+  # server-rest:
+  #   build:
+  #     context: server-rest
+  #     dockerfile: Dockerfile.dev
+  #   volumes:
+  #     - "./server-rest:/app"
+  #     - "/app/node_modules"
+  #   ports:
+  #     - "4000:4000"
   # worker:
   #   build:
   #     context: worker
