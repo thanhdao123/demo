@@ -22,16 +22,16 @@ services:
   #   ports:
   #     - "15678:15672"
 
-  mongodb:
-    image: mongo
-    ports:
-      - "27017:27017"
-    environment:
-      - "MONGO_INITDB_ROOT_USERNAME=root"
-      - "MONGO_INITDB_ROOT_PASSWORD=root_password"
-      - "MONGO_INITDB_DATABASE=admin"
-    volumes:
-      - "mongo-data:/data/db"
+  # mongodb:
+  #   image: mongo
+  #   ports:
+  #     - "27017:27017"
+  #   environment:
+  #     - "MONGO_INITDB_ROOT_USERNAME=root"
+  #     - "MONGO_INITDB_ROOT_PASSWORD=root_password"
+  #     - "MONGO_INITDB_DATABASE=admin"
+  #   volumes:
+  #     - "mongo-data:/data/db"
 
   # web:
   #   build:
@@ -55,21 +55,22 @@ services:
   #     - "traefik.enable=true"
   #     - "traefik.frontend.rule=Host:server.docker.localhost"
   #     - "traefik.port=8000"
-  server-rest:
-    build:
-      context: server-rest
-      dockerfile: Dockerfile.dev
-    volumes:
-      - "./server-rest:/app"
-      - "/app/node_modules"
-    ports:
-      - "4000:4000"
-  # worker:
+  # server-rest:
   #   build:
-  #     context: worker
+  #     context: server-rest
   #     dockerfile: Dockerfile.dev
   #   volumes:
-  #     - "./worker:/app"
+  #     - "./server-rest:/app"
+  #     - "/app/node_modules"
+  #   ports:
+  #     - "4000:4000"
+
+  worker:
+    build:
+      context: worker
+      dockerfile: Dockerfile.dev
+    volumes:
+      - "./worker:/app"
 
 volumes:
   mongo-data:
