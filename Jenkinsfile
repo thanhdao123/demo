@@ -8,9 +8,11 @@ pipeline {
             }
         }
         stage('Push Images to DockerHub') {
-            withDockerRegistry([ credentialsId: "docker-hub-cred", url: "" ]) {
-                sh 'docker push daongocthanh/demo-server-rest:latest'
-                sh 'docker push daongocthanh/demo-server-rest:${GIT_COMMIT}'
+            steps {
+               withDockerRegistry([ credentialsId: "docker-hub-cred", url: "" ]) {
+                    sh 'docker push daongocthanh/demo-server-rest:latest'
+                    sh 'docker push daongocthanh/demo-server-rest:${GIT_COMMIT}'
+                }
             }
         }
     }
