@@ -1,9 +1,9 @@
 pipeline {
-    agent none 
+    agent any
     stages {
         stage('Example Build') {
             steps {
-                echo 'Hello, Maven'
+                echo "GIT_COMMIT ${GIT_COMMIT} okok"
             }
         }
         stage('Example Test') {
