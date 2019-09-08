@@ -84,16 +84,13 @@ services:
   server-rest:
     image: daongocthanh/demo-server-rest
     ports:
-      - "8000:8000"
+      - "4000:4000"
     deploy:
       replicas: 1
       restart_policy:
         condition: on-failure
         delay: 5s
         max_attempts: 3
-      labels:
-        - "traefik.enable=true"
-        - "traefik.port=8000"
     networks:
       - "verse"
 
