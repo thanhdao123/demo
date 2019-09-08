@@ -12,6 +12,7 @@ pipeline {
             steps {
                withDockerRegistry([ credentialsId: "docker-hub-cred", url: "" ]) {
                     sh 'docker push daongocthanh/demo-server-rest:latest'
+
                     sh 'docker push daongocthanh/demo-server-graphql:latest'
 
                     sh 'docker push daongocthanh/demo-server-rest:${GIT_COMMIT}'
