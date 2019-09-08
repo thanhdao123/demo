@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Example Build') {
             steps {
-                echo "GIT_COMMIT is ${GIT_COMMIT}"
+                echo "GIT_COMMIT is ${GIT_COMMIT} okok"
             }
         }
         stage('Example Test') {
