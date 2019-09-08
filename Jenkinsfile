@@ -11,13 +11,18 @@ pipeline {
         stage('Push Images to DockerHub') {
             steps {
                withDockerRegistry([ credentialsId: "docker-hub-cred", url: "" ]) {
-                    sh 'docker push daongocthanh/demo-server-rest:latest'
+                    sh "docker push daongocthanh/demo-server-rest:latest"
+                    sh "docker push daongocthanh/demo-server-graphql:latest"
 
-                    sh 'docker push daongocthanh/demo-server-graphql:latest'
-
-                    sh 'docker push daongocthanh/demo-server-rest:${GIT_COMMIT}'
-                    sh 'docker push daongocthanh/demo-server-graphql:${GIT_COMMIT}'
+                    sh "docker push daongocthanh/demo-server-rest:${GIT_COMMIT}"
+                    sh "docker push daongocthanh/demo-server-graphql:${GIT_COMMIT}"
                 }
+            }
+        }
+        stage('Clean') {
+            steps {
+                sh "docker image rm daongocthanh/demo-server-rest:${GIT_COMMIT}"
+                sh "docker image rm daongocthanh/demo-server-graphql:${GIT_COMMIT}"
             }
         }
     }
