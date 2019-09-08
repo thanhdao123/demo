@@ -27,8 +27,8 @@ pipeline {
         }
         stage('Update Swarm') {
             steps {
-                sh 'docker stack deploy -c docker-stack.yml demo-app'
-                sh 'docker service update --image daongocthanh/demo-server-rest:${GIT_COMMIT} demo-app_server-rest'
+                sh "docker stack deploy -c docker-stack.yml demo-app"
+                sh "docker service update --image daongocthanh/demo-server-rest:${GIT_COMMIT} demo-app_server-rest"
             }
         }
     }
