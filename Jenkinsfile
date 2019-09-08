@@ -9,7 +9,9 @@ pipeline {
         }
         stage('Example Test') {
             steps {
-                echo 'Hello, JDK 123'
+                withCredentials([usernamePassword(credentialsId: 'docker-hub-cred', passwordVariable: 'docker-hub-password', usernameVariable: 'docker-hub-username')]) {
+                    sh "echo ${docker-hub-password} | docker login -u ${docker-hub-username} --password-stdin"
+                }
             }
         }
     }
