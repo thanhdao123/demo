@@ -41,7 +41,7 @@ services:
     image: mongo
     environment:
       - "MONGO_INITDB_ROOT_USERNAME=root"
-      - "MONGO_INITDB_ROOT_PASSWORD=root_pw"
+      - "MONGO_INITDB_ROOT_PASSWORD=root_password"
       - "MONGO_INITDB_DATABASE=demo"
     volumes:
       - "mongo-data:/data/db"
@@ -62,15 +62,35 @@ services:
   #   networks:
   #     - "verse"
 
-  server-graphql:
-    image: daongocthanh/demo-server-graphql
+  # server-graphql:
+  #   image: daongocthanh/demo-server-graphql
+  #   ports:
+  #     - "8000:8000"
+  #   deploy:
+  #     replicas: 1
+  #     restart_policy:
+  #       condition: on-failure
+  #       delay: 5s
+  #       max_attempts: 3
+  #     labels:
+  #       - "traefik.enable=true"
+  #       - "traefik.frontend.rule=Host:server.awesome-domain.tk"
+  #       - "traefik.port=8000"
+  #   networks:
+  #     - "verse"
+
+  server-rest:
+    image: daongocthanh/demo-server-rest
     ports:
       - "8000:8000"
     deploy:
       replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
       labels:
         - "traefik.enable=true"
-        - "traefik.frontend.rule=Host:server.awesome-domain.tk"
         - "traefik.port=8000"
     networks:
       - "verse"

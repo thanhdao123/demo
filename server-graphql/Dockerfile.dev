@@ -7,4 +7,4 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
 
 WORKDIR /app
 
-CMD ["sh", "-c", "dockerize -wait tcp://rabbit:5672 -wait tcp://mongodb:27017 && yarn dev"]
+CMD ["sh", "-c", "dockerize -wait tcp://mongodb:27017 && yarn dev"]
