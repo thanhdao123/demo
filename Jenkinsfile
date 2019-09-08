@@ -27,7 +27,8 @@ pipeline {
         }
         stage('Update Swarm') {
             steps {
-                sh "docker stack deploy -c docker-stack.yml demo-app"
+                sh 'docker stack deploy -c docker-stack.yml demo-app'
+                sh 'docker service update --image daongocthanh/demo-server-graphql:${GIT_COMMIT} server-graphql'
             }
         }
     }

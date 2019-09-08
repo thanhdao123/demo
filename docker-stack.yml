@@ -64,7 +64,6 @@ services:
 
   server-graphql:
     image: daongocthanh/demo-server-graphql
-    build: server-graphql
     ports:
       - "8000:8000"
     deploy:
