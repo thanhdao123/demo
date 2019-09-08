@@ -9,7 +9,7 @@ pipeline {
         }
         stage('Example Test') {
             steps {
-                echo 'Hello, JDK'
+                echo 'Hello, JDK okokoko'
             }
         }
     }
