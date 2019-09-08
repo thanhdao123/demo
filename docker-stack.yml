@@ -10,32 +10,32 @@ services:
     deploy:
       replicas: 1
 
-  traefik:
-    image: traefik:1.7-alpine
-    deploy:
-      replicas: 1
-    ports:
-      - "80:80"
-      - "8080:8080"
-      - "443:443"
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
-      - "./traefik/traefik.toml:/etc/traefik/traefik.toml"
-    networks:
-      - "verse"
+  # traefik:
+  #   image: traefik:1.7-alpine
+  #   deploy:
+  #     replicas: 1
+  #   ports:
+  #     - "80:80"
+  #     - "8080:8080"
+  #     - "443:443"
+  #   volumes:
+  #     - "/var/run/docker.sock:/var/run/docker.sock"
+  #     - "./traefik/traefik.toml:/etc/traefik/traefik.toml"
+  #   networks:
+  #     - "verse"
 
-  rabbit:
-    image: "rabbitmq:3-management"
-    hostname: "rabbitmq"
-    environment:
-      RABBITMQ_ERLANG_COOKIE: "H1hK3rDP1qySM7UH"
-      RABBITMQ_DEFAULT_USER: "guest"
-      RABBITMQ_DEFAULT_PASS: "guest"
-      RABBITMQ_DEFAULT_VHOST: "/"
-    ports:
-      - "15678:15672"
-    networks:
-      - "verse"
+  # rabbit:
+  #   image: "rabbitmq:3-management"
+  #   hostname: "rabbitmq"
+  #   environment:
+  #     RABBITMQ_ERLANG_COOKIE: "H1hK3rDP1qySM7UH"
+  #     RABBITMQ_DEFAULT_USER: "guest"
+  #     RABBITMQ_DEFAULT_PASS: "guest"
+  #     RABBITMQ_DEFAULT_VHOST: "/"
+  #   ports:
+  #     - "15678:15672"
+  #   networks:
+  #     - "verse"
 
   mongodb:
     image: mongo
@@ -48,21 +48,21 @@ services:
     networks:
       - "verse"
 
-  web:
-    image: daongocthanh/demo-web
-    build: web
-    ports:
-      - "3000:3000"
-    deploy:
-      replicas: 1
-      labels:
-        - "traefik.enable=true"
-        - "traefik.frontend.rule=Host:web.awesome-domain.tk"
-        - "traefik.port=3000"
-    networks:
-      - "verse"
+  # web:
+  #   image: daongocthanh/demo-web
+  #   build: web
+  #   ports:
+  #     - "3000:3000"
+  #   deploy:
+  #     replicas: 1
+  #     labels:
+  #       - "traefik.enable=true"
+  #       - "traefik.frontend.rule=Host:web.awesome-domain.tk"
+  #       - "traefik.port=3000"
+  #   networks:
+  #     - "verse"
 
-  server:
+  server-graphql:
     image: daongocthanh/demo-server-graphql
     build: server-graphql
     ports:
@@ -76,13 +76,13 @@ services:
     networks:
       - "verse"
 
-  worker:
-    image: daongocthanh/demo-worker
-    build: worker
-    deploy:
-      replicas: 1
-    networks:
-      - "verse"
+  # worker:
+  #   image: daongocthanh/demo-worker
+  #   build: worker
+  #   deploy:
+  #     replicas: 1
+  #   networks:
+  #     - "verse"
 
 volumes:
   mongo-data:
