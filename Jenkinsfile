@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Example Build') {
             steps {
-                echo "GIT_COMMIT isokokokok"
+                echo "GIT_COMMIT ${GIT_COMMIT}"
             }
         }
         stage('Example Test') {
