@@ -3,7 +3,9 @@ pipeline {
     stages {
         stage('Example Build') {
             steps {
-                echo 'Hello, Maven okok'
+                withCheckout(scm) {
+                    echo "GIT_COMMIT is ${env.GIT_COMMIT}"
+                }
             }
         }
         stage('Example Test') {
