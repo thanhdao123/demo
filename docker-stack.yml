@@ -42,7 +42,9 @@ services:
     environment:
       - "MONGO_INITDB_ROOT_USERNAME=root"
       - "MONGO_INITDB_ROOT_PASSWORD=root_password"
-      - "MONGO_INITDB_DATABASE=demo"
+      - "MONGO_INITDB_DATABASE=admin"
+    ports:
+      - "27017:27017"
     volumes:
       - "mongo-data:/data/db"
     networks:
