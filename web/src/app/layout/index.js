@@ -1,10 +1,6 @@
 import React from "react";
 
-import useTestQuery from "hooks/use-test-query";
-
 function Layout() {
-  useTestQuery();
-
   return (
     <div className="w-full h-screen flex justify-center items-center">
       <div className="flex flex-col">

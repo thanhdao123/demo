@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { mongoConfig } = require("configs/constants.config");
 
 mongoose.Promise = Promise;
 
@@ -23,11 +24,17 @@ mongoose.connection.on("error", error => {
 });
 
 async function connectDB() {
-  return mongoose.connect("mongodb://root:root_password@mongodb:27017/admin", {
+  const connectionString = createConnectionString(mongoConfig);
+  await mongoose.connect(connectionString, {
     useNewUrlParser: true,
     autoReconnect: true,
     useFindAndModify: false
   });
+}
+
+function createConnectionString(config) {
+  const { host, port, database, username, password } = config;
+  return `mongodb://${username}:${password}@${host}:${port}/${database}`;
 }
 
 module.exports = connectDB;

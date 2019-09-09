@@ -1,15 +1,6 @@
 version: "3"
 
 services:
-  viz:
-    image: bretfisher/visualizer
-    ports:
-      - "8081:8080"
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
-    deploy:
-      replicas: 1
-
   # traefik:
   #   image: traefik:1.7-alpine
   #   deploy:
@@ -59,36 +50,31 @@ services:
     networks:
       - "verse"
 
-  # server-graphql:
-  #   image: daongocthanh/demo-server-graphql
-  #   ports:
-  #     - "8000:8000"
-  #   deploy:
-  #     replicas: 1
-  #     restart_policy:
-  #       condition: on-failure
-  #       delay: 5s
-  #       max_attempts: 3
-  #     labels:
-  #       - "traefik.enable=true"
-  #       - "traefik.frontend.rule=Host:server.awesome-domain.tk"
-  #       - "traefik.port=8000"
-  #   networks:
-  #     - "verse"
-
-  server-rest:
-    image: daongocthanh/demo-server-rest
+  server-graphql:
+    image: daongocthanh/demo-server-graphql
     ports:
-      - "4000:4000"
+      - "8000:8000"
     deploy:
       replicas: 1
       restart_policy:
         condition: on-failure
-        delay: 4s
+        delay: 5s
         max_attempts: 3
     networks:
       - "verse"
 
+  # server-rest:
+  #   image: daongocthanh/demo-server-rest
+  #   ports:
+  #     - "4000:4000"
+  #   deploy:
+  #     replicas: 1
+  #     restart_policy:
+  #       condition: on-failure
+  #       delay: 4s
+  #       max_attempts: 3
+  #   networks:
+  #     - "verse"
   # worker:
   #   image: daongocthanh/demo-worker
   #   build: worker

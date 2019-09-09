@@ -1,10 +1,10 @@
 const http = require("http");
-const { port } = require("configs/constants.config");
+const { serverPort } = require("configs/constants.config");
 
 const setupApolloServer = require("app-apollo/setup");
 const setupExpress = require("app-express/setup");
 const connectDB = require("db/connectDB");
-const { connectRabbitMQ } = require("services/rabbit.services");
+const startConsumer = require("services/rabbit.services");
 
 async function startServer() {
   const expressApp = setupExpress();
@@ -14,11 +14,11 @@ async function startServer() {
   apolloServer.installSubscriptionHandlers(httpServer);
 
   await connectDB();
-  await connectRabbitMQ();
+  await startConsumer();
 
-  httpServer.listen({ port }, () => {
+  httpServer.listen(serverPort, () => {
     console.log("#################################################");
-    console.log(" 🛡️  Server listening on port: ", port, " 🛡️ ");
+    console.log(" 🛡️  Server listening on port: ", serverPort, " 🛡️ ");
     console.log("#################################################");
   });
 }

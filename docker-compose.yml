@@ -10,16 +10,17 @@ services:
   #   volumes:
   #     - "/var/run/docker.sock:/var/run/docker.sock"
   #     - "./traefik/traefik.dev.toml:/etc/traefik/traefik.toml"
-  # rabbit:
-  #   image: "rabbitmq:3-management"
-  #   hostname: "rabbitmq"
-  #   environment:
-  #     RABBITMQ_ERLANG_COOKIE: "H1hK3rDP1qySM7UH"
-  #     RABBITMQ_DEFAULT_USER: "guest"
-  #     RABBITMQ_DEFAULT_PASS: "guest"
-  #     RABBITMQ_DEFAULT_VHOST: "/"
-  #   ports:
-  #     - "15678:15672"
+  rabbit:
+    image: "rabbitmq:3-management"
+    hostname: "rabbitmq"
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "H1hK3rDP1qySM7UH"
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    ports:
+      - "15678:15672"
+
   mongodb:
     image: mongo
     ports:
@@ -30,35 +31,46 @@ services:
       - "MONGO_INITDB_DATABASE=admin"
     volumes:
       - "mongo-data:/data/db"
+
   web:
     build:
       context: web
       dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
     volumes:
       - "./web:/app"
 
-  # server:
+  server-graphql:
+    build:
+      context: server-graphql
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8000:8000"
+    environment:
+      - "SERVER_PORT=8000"
+      - "RABBIT_HOSTNAME=rabbit"
+      - "RABBIT_PORT=5672"
+      - "RABBIT_USERNAME=guest"
+      - "RABBIT_PASSWORD=guest"
+      - "MONGO_HOST=mongodb"
+      - "MONGO_PORT=27017"
+      - "MONGO_USERNAME=root"
+      - "MONGO_PASSWORD=root_password"
+      - "MONGO_DATABASE=admin"
+    volumes:
+      - "./server-graphql:/app"
+      - "/app/node_modules"
+
+  # server-rest:
   #   build:
-  #     context: server-graphql
+  #     context: server-rest
   #     dockerfile: Dockerfile.dev
   #   volumes:
-  #     - "./server-graphql:/app"
+  #     - "./server-rest:/app"
   #     - "/app/node_modules"
   #   ports:
-  #     - "8000:8000"
-  #   labels:
-  #     - "traefik.enable=true"
-  #     - "traefik.frontend.rule=Host:server.docker.localhost"
-  #     - "traefik.port=8000"
-  server-rest:
-    build:
-      context: server-rest
-      dockerfile: Dockerfile.dev
-    volumes:
-      - "./server-rest:/app"
-      - "/app/node_modules"
-    ports:
-      - "4000:4000"
+  #     - "4000:4000"
   # worker:
   #   build:
   #     context: worker

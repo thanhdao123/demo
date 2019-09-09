@@ -1,26 +1,51 @@
 const amqp = require("amqplib");
+const { rabbitConfig } = require("configs/constants.config");
 
-let channel = null;
-const QUEUE = "image-queue";
+const getChannel = setupRabbit(rabbitConfig);
 
-async function connectRabbitMQ() {
-  const conn = await amqp.connect(`amqp://rabbit`);
-  const ch = await conn.createChannel();
+async function startConsumer() {
+  const QUEUE = "image-queue";
+  const channel = await getChannel();
 
-  await ch.assertQueue(QUEUE, { durable: true });
+  await channel.prefetch(1);
+  await channel.assertQueue(QUEUE, { durable: true });
+  await channel.consume(QUEUE, consumer, { noAck: false });
 
-  ch.on("close", () => console.log(" [RabbitMQ] channel closed!"));
+  async function consumer(msg) {
+    console.log(" [C] Receive message: %s", msg.content.toString());
+    await channel.ack(msg);
+    console.log(" [C] Finish process message: %s", msg.content.toString());
+  }
 
-  channel = ch;
+  console.log(" [C] start receive messgae on queue |%s|", QUEUE);
 }
 
-async function publishTask(message) {
-  await channel.sendToQueue(QUEUE, Buffer.from(message), {
-    persistent: true
-  });
-  console.log(" [P] a NEW messge sent to |%s|", QUEUE);
+function setupRabbit(config) {
+  const channel = null;
+
+  async function createChannel() {
+    const conn = await amqp.connect(config);
+    const ch = await conn.createChannel();
+    return ch;
+  }
+
+  async function getChannel() {
+    return channel || (await createChannel());
+  }
+
+  return getChannel;
 }
 
-const rabbitServices = Object.freeze({ connectRabbitMQ, publishTask });
+async function makePublishMessageToTargetQueue(queue) {
+  const channel = await getChannel();
+  async function publishTask(message) {
+    await channel.sendToQueue(queue, Buffer.from(message), {
+      persistent: true
+    });
+    console.log(" [P] a NEW messge sent to |%s|", queue);
+  }
 
-module.exports = rabbitServices;
+  return publishTask;
+}
+
+module.exports = startConsumer;
