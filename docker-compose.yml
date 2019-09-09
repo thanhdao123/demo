@@ -15,9 +15,9 @@ services:
     hostname: "rabbitmq"
     environment:
       RABBITMQ_ERLANG_COOKIE: "H1hK3rDP1qySM7UH"
+      RABBITMQ_DEFAULT_VHOST: "/"
       RABBITMQ_DEFAULT_USER: "guest"
       RABBITMQ_DEFAULT_PASS: "guest"
-      RABBITMQ_DEFAULT_VHOST: "/"
     ports:
       - "15678:15672"
 
@@ -26,9 +26,12 @@ services:
     ports:
       - "27017:27017"
     environment:
-      - "MONGO_INITDB_ROOT_USERNAME=root"
-      - "MONGO_INITDB_ROOT_PASSWORD=root_password"
+      - "MONGO_INITDB_ROOT_USERNAME_FILE=/run/secrets/mongo_username"
+      - "MONGO_INITDB_ROOT_PASSWORD_FILE=/run/secrets/mongo_password"
       - "MONGO_INITDB_DATABASE=admin"
+    secrets:
+      - "mongo_username"
+      - "mongo_password"
     volumes:
       - "mongo-data:/data/db"
 
@@ -38,6 +41,9 @@ services:
       dockerfile: Dockerfile.dev
     ports:
       - "3000:3000"
+    environment:
+      - "REACT_APP_APOLLO_HTTP_URI=http://localhost:8000/graphql"
+      - "REACT_APP_APOLLO_WS_URI=ws://localhost:8000/graphql"
     volumes:
       - "./web:/app"
 
@@ -51,17 +57,17 @@ services:
       - "SERVER_PORT=8000"
       - "RABBIT_HOSTNAME=rabbit"
       - "RABBIT_PORT=5672"
-      - "RABBIT_USERNAME=guest"
-      - "RABBIT_PASSWORD=guest"
       - "MONGO_HOST=mongodb"
       - "MONGO_PORT=27017"
-      - "MONGO_USERNAME=root"
-      - "MONGO_PASSWORD=root_password"
       - "MONGO_DATABASE=admin"
+    secrets:
+      - "mongo_username"
+      - "mongo_password"
+      - "rabbit_username"
+      - "rabbit_password"
     volumes:
       - "./server-graphql:/app"
       - "/app/node_modules"
-
   # server-rest:
   #   build:
   #     context: server-rest
@@ -77,6 +83,15 @@ services:
   #     dockerfile: Dockerfile.dev
   #   volumes:
   #     - "./worker:/app"
+secrets:
+  rabbit_username:
+    file: secrets/rabbit_username.txt
+  rabbit_password:
+    file: secrets/rabbit_password.txt
+  mongo_username:
+    file: secrets/mongo_username.txt
+  mongo_password:
+    file: secrets/mongo_password.txt
 
 volumes:
   mongo-data:
