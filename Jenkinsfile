@@ -4,7 +4,6 @@ pipeline {
     stages {
         stage('Build Images') {
             steps {
-                sh "docker build -t daongocthanh/demo-server-rest:latest -t daongocthanh/demo-server-rest:${GIT_COMMIT} -f ./server-rest/Dockerfile ./server-rest"
                 sh "docker build -t daongocthanh/demo-server-graphql:latest -t daongocthanh/demo-server-graphql:${GIT_COMMIT} -f ./server-graphql/Dockerfile ./server-graphql"
                 sh "docker build -t daongocthanh/demo-web:latest -t daongocthanh/demo-web:${GIT_COMMIT} -f ./web/Dockerfile ./web"
             }
@@ -12,26 +11,18 @@ pipeline {
         stage('Push Images to DockerHub') {
             steps {
                withDockerRegistry([ credentialsId: "thanhdao-dockerhub-cred", url: "" ]) {
-                    sh "docker push daongocthanh/demo-server-rest:latest"
                     sh "docker push daongocthanh/demo-server-graphql:latest"
                     sh "docker push daongocthanh/demo-web:latest"
 
-                    sh "docker push daongocthanh/demo-server-rest:${GIT_COMMIT}"
                     sh "docker push daongocthanh/demo-server-graphql:${GIT_COMMIT}"
                     sh "docker push daongocthanh/demo-web:${GIT_COMMIT}"
                 }
             }
         }
-        stage('Clean') {
-            steps {
-                sh "docker image rm daongocthanh/demo-server-rest:${GIT_COMMIT}"
-                sh "docker image rm daongocthanh/demo-server-graphql:${GIT_COMMIT}"
-                sh "docker image rm daongocthanh/demo-web:${GIT_COMMIT}"
-            }
-        }
         stage('Update Swarm') {
             steps {
-                sh "docker stack deploy -c docker-stack.yml demo-app"
+                sh "docker service update --image daongocthanh/demo-web:${GIT_COMMI} demo-app_web"
+                sh "docker service update --image daongocthanh/demo-server-graphql:${GIT_COMMI} demo-app_server-graphql"
             }
         }
     }
