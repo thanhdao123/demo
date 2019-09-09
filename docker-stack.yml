@@ -17,6 +17,10 @@ services:
 
   rabbit:
     image: "rabbitmq:3-management"
+    deploy:
+      replicas: 1
+    ports:
+      - "15672:15672"
     hostname: "rabbitmq"
     environment:
       RABBITMQ_ERLANG_COOKIE: "H1hK3rDP1qySM7UH"
