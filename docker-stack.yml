@@ -30,6 +30,8 @@ services:
 
   mongodb:
     image: mongo
+    deploy:
+      replicas: 1
     ports:
       - "27017:27017"
     environment:
