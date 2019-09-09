@@ -21,8 +21,8 @@ pipeline {
         }
         stage('Update Swarm') {
             steps {
-                sh "docker service update --image daongocthanh/demo-web:${GIT_COMMI} demo-app_web"
-                sh "docker service update --image daongocthanh/demo-server-graphql:${GIT_COMMI} demo-app_server-graphql"
+                sh "docker service update --image daongocthanh/demo-web:${GIT_COMMIT} demo-app_web"
+                sh "docker service update --image daongocthanh/demo-server-graphql:${GIT_COMMIT} demo-app_server-graphql"
             }
         }
     }
