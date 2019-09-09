@@ -30,16 +30,13 @@ services:
       - "MONGO_INITDB_DATABASE=admin"
     volumes:
       - "mongo-data:/data/db"
-  # web:
-  #   build:
-  #     context: web
-  #     dockerfile: Dockerfile.dev
-  #   volumes:
-  #     - "./web:/app"
-  #   labels:
-  #     - "traefik.enable=true"
-  #     - "traefik.frontend.rule=Host:web.docker.localhost"
-  #     - "traefik.port=3000"
+  web:
+    build:
+      context: web
+      dockerfile: Dockerfile.dev
+    volumes:
+      - "./web:/app"
+
   # server:
   #   build:
   #     context: server-graphql

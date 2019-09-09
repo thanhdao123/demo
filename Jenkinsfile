@@ -6,6 +6,7 @@ pipeline {
             steps {
                 sh "docker build -t daongocthanh/demo-server-rest:latest -t daongocthanh/demo-server-rest:${GIT_COMMIT} -f ./server-rest/Dockerfile ./server-rest"
                 sh "docker build -t daongocthanh/demo-server-graphql:latest -t daongocthanh/demo-server-graphql:${GIT_COMMIT} -f ./server-graphql/Dockerfile ./server-graphql"
+                sh "docker build -t daongocthanh/demo-web:latest -t daongocthanh/demo-web:${GIT_COMMIT} -f ./web/Dockerfile ./web"
             }
         }
         stage('Push Images to DockerHub') {
@@ -13,9 +14,11 @@ pipeline {
                withDockerRegistry([ credentialsId: "thanhdao-dockerhub-cred", url: "" ]) {
                     sh "docker push daongocthanh/demo-server-rest:latest"
                     sh "docker push daongocthanh/demo-server-graphql:latest"
+                    sh "docker push daongocthanh/demo-web:latest"
 
                     sh "docker push daongocthanh/demo-server-rest:${GIT_COMMIT}"
                     sh "docker push daongocthanh/demo-server-graphql:${GIT_COMMIT}"
+                    sh "docker push daongocthanh/demo-web:${GIT_COMMIT}"
                 }
             }
         }
