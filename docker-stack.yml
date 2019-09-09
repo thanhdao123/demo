@@ -15,18 +15,18 @@ services:
   #   networks:
   #     - "verse"
 
-  # rabbit:
-  #   image: "rabbitmq:3-management"
-  #   hostname: "rabbitmq"
-  #   environment:
-  #     RABBITMQ_ERLANG_COOKIE: "H1hK3rDP1qySM7UH"
-  #     RABBITMQ_DEFAULT_USER: "guest"
-  #     RABBITMQ_DEFAULT_PASS: "guest"
-  #     RABBITMQ_DEFAULT_VHOST: "/"
-  #   ports:
-  #     - "15678:15672"
-  #   networks:
-  #     - "verse"
+  rabbit:
+    image: "rabbitmq:3-management"
+    hostname: "rabbitmq"
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "H1hK3rDP1qySM7UH"
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    ports:
+      - "15678:15672"
+    networks:
+      - "verse"
 
   mongodb:
     image: mongo
