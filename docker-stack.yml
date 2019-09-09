@@ -52,7 +52,6 @@ services:
 
   web:
     image: daongocthanh/demo-web
-    build: web
     ports:
       - "3000:3000"
     deploy:

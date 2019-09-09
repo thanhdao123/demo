@@ -7,10 +7,10 @@ import Layout from "app/layout";
 
 export default function App() {
   return (
-    <ApolloProvider>
-      <ReduxProvider>
-        <Layout />
-      </ReduxProvider>
-    </ApolloProvider>
+    // <ApolloProvider>
+    // <ReduxProvider>
+    <Layout />
+    // </ReduxProvider>
+    // </ApolloProvider>
   );
 }

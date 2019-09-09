@@ -26,6 +26,7 @@ pipeline {
             steps {
                 sh "docker image rm daongocthanh/demo-server-rest:${GIT_COMMIT}"
                 sh "docker image rm daongocthanh/demo-server-graphql:${GIT_COMMIT}"
+                sh "docker image rm daongocthanh/demo-web:${GIT_COMMIT}"
             }
         }
         stage('Update Swarm') {
