@@ -10,7 +10,7 @@ pipeline {
         }
         stage('Push Images to DockerHub') {
             steps {
-               withDockerRegistry([ credentialsId: "docker-hub-cred", url: "" ]) {
+               withDockerRegistry([ credentialsId: "thanhdao-dockerhub-cred", url: "" ]) {
                     sh "docker push daongocthanh/demo-server-rest:latest"
                     sh "docker push daongocthanh/demo-server-graphql:latest"
 
