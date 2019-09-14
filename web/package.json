@@ -24,12 +24,13 @@
     "react-scripts": "^3.0.1",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
+    "simple-peer": "^9.5.0",
     "subscriptions-transport-ws": "^0.9.16"
   },
   "scripts": {
     "prestart": "tailwind build src/styles/index.tailwind.css -c tailwind.config.js -o src/styles/index.css",
-    "start": "REACT_APP_STATE=DEV react-scripts start",
-    "build": "REACT_APP_STATE=STAGING react-scripts build"
+    "start": "react-scripts start",
+    "build": "react-scripts build"
   },
   "eslintConfig": {
     "extends": "react-app"

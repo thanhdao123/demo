@@ -1,22 +1,7 @@
-const devConfig = {
-  apolloHttpLinkURI: "http://server.docker.localhost/graphql",
-  apolloWsLinkURI: "ws://server.docker.localhost/graphql"
+const config = {
+  apolloHttpLinkURI: process.env.REACT_APP_APOLLO_HTTP_URI,
+  apolloWsLinkURI: process.env.REACT_APP_APOLLO_WS_URI,
+  apolloServerBaseURL: process.env.REACT_APP_APOLLO_SERVER_BASE_URL
 };
 
-const stagingConfig = {
-  apolloHttpLinkURI: "https://server.awesome-domain.tk/graphql",
-  apolloWsLinkURI: "wss://server.awesome-domain.tk/graphql"
-};
-
-function getConfig() {
-  switch (process.env.REACT_APP_STATE) {
-    case "DEV":
-      return devConfig;
-    case "STAGING":
-      return stagingConfig;
-    default:
-      throw new Error("STATE enviroment variable WRONG!");
-  }
-}
-
-export default getConfig();
+export default config;

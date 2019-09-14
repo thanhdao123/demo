@@ -16,6 +16,4 @@ function download({ url, dest }) {
   });
 }
 
-const fileUtils = Object.freeze({ download });
-
-module.exports = fileUtils;
+module.exports = { download };

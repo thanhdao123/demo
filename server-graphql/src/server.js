@@ -16,7 +16,7 @@ async function startServer() {
   await connectDB();
   await connectRabbitMQ();
 
-  httpServer.listen({ port }, () => {
+  httpServer.listen(port, () => {
     console.log("#################################################");
     console.log(" 🛡️  Server listening on port: ", port, " 🛡️ ");
     console.log("#################################################");

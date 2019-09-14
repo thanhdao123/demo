@@ -5,8 +5,14 @@ services:
     build:
       context: web
       dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
     volumes:
       - "./web:/app"
+    environment:
+      - "REACT_APP_APOLLO_HTTP_URI=http://localhost:8000/graphql"
+      - "REACT_APP_APOLLO_WS_URI=ws://localhost:8000/graphql"
+      - "REACT_APP_APOLLO_SERVER_BASE_URL=http://localhost:8000"
 
   server:
     build:
@@ -16,36 +22,47 @@ services:
       - "8000:8000"
     volumes:
       - "./server-graphql:/app"
-
-  server-rest:
-    build:
-      context: server-rest
-      dockerfile: Dockerfile.dev
-    ports:
-      - "4000:4000"
-    volumes:
-      - "./server-rest:/app"
-      - "/app/node_modules"
-
-  worker:
-    build:
-      context: worker
-      dockerfile: Dockerfile.dev
-    volumes:
-      - "./worker:/app"
-
-  rabbit:
-    image: "rabbitmq:3-management"
-    ports:
-      - "15678:15672"
-    volumes:
-      - "rabbit-data:/var/lib/rabbitmq"
     environment:
-      - "RABBITMQ_ERLANG_COOKIE=H1hK3rDP1qySM7UH"
-      - "RABBITMQ_DEFAULT_USER=guest"
-      - "RABBITMQ_DEFAULT_PASS=guest"
-      - "RABBITMQ_DEFAULT_VHOST=/"
-    hostname: rabbitmq
+      - "APP_PORT=8000"
+      - "MONGO_HOST=mongodb"
+      - "MONGO_PORT=27017"
+      - "MONGO_USERNAME=root"
+      - "MONGO_PASSWORD=root_password"
+      - "MONGO_DATABASE=admin"
+      - "INTERNAL_RABBIT_HOSTNAME=rabbitmq"
+      - "INTERNAL_RABBIT_PORT=5672"
+      - "INTERNAL_RABBIT_USERNAME=guest"
+      - "INTERNAL_RABBIT_PASSWORD=guest"
+
+  # server-rest:
+  #   build:
+  #     context: server-rest
+  #     dockerfile: Dockerfile.dev
+  #   ports:
+  #     - "4000:4000"
+  #   volumes:
+  #     - "./server-rest:/app"
+  #     - "/app/node_modules"
+
+  # worker:
+  #   build:
+  #     context: worker
+  #     dockerfile: Dockerfile.dev
+  #   volumes:
+  #     - "./worker:/app"
+
+  # rabbit:
+  #   image: "rabbitmq:3-management"
+  #   ports:
+  #     - "15678:15672"
+  #   volumes:
+  #     - "rabbit-data:/var/lib/rabbitmq"
+  #   environment:
+  #     - "RABBITMQ_ERLANG_COOKIE=H1hK3rDP1qySM7UH"
+  #     - "RABBITMQ_DEFAULT_USER=guest"
+  #     - "RABBITMQ_DEFAULT_PASS=guest"
+  #     - "RABBITMQ_DEFAULT_VHOST=/"
+  #   hostname: rabbitmq
 
   mongodb:
     image: mongo
