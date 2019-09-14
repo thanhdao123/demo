@@ -1,41 +1,34 @@
-version: "3"
+version: "3.5"
 
 services:
-  viz:
-    image: bretfisher/visualizer
-    ports:
-      - "8081:8080"
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
-    deploy:
-      replicas: 1
-
   traefik:
-    image: traefik:1.7-alpine
-    deploy:
-      replicas: 1
+    image: traefik:1.7
     ports:
       - "80:80"
       - "8080:8080"
       - "443:443"
+    networks:
+      - verse
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "./traefik/traefik.toml:/etc/traefik/traefik.toml"
-    networks:
-      - "verse"
+    deploy:
+      replicas: 1
 
   rabbit:
-    image: "rabbitmq:3-management"
-    hostname: "rabbitmq"
-    environment:
-      RABBITMQ_ERLANG_COOKIE: "H1hK3rDP1qySM7UH"
-      RABBITMQ_DEFAULT_USER: "guest"
-      RABBITMQ_DEFAULT_PASS: "guest"
-      RABBITMQ_DEFAULT_VHOST: "/"
+    image: rabbitmq:3-management
     ports:
       - "15678:15672"
     networks:
-      - "verse"
+      - verse
+    volumes:
+      - "rabbit-data:/var/lib/rabbitmq"
+    environment:
+      - "RABBITMQ_ERLANG_COOKIE=H1hK3rDP1qySM7UH"
+      - "RABBITMQ_DEFAULT_USER=guest"
+      - "RABBITMQ_DEFAULT_PASS=guest"
+      - "RABBITMQ_DEFAULT_VHOST:/"
+    hostname: rabbitmq
 
   mongodb:
     image: mongo
@@ -46,7 +39,7 @@ services:
     volumes:
       - "mongo-data:/data/db"
     networks:
-      - "verse"
+      - verse
 
   web:
     image: daongocthanh/demo-web
@@ -57,35 +50,32 @@ services:
       replicas: 1
       labels:
         - "traefik.enable=true"
-        - "traefik.frontend.rule=Host:web.awesome-domain.tk"
         - "traefik.port=3000"
     networks:
-      - "verse"
+      - verse
 
   server:
     image: daongocthanh/demo-server-graphql
-    build: server-graphql
     ports:
       - "8000:8000"
+    networks:
+      - verse
     deploy:
       replicas: 1
       labels:
         - "traefik.enable=true"
-        - "traefik.frontend.rule=Host:server.awesome-domain.tk"
         - "traefik.port=8000"
-    networks:
-      - "verse"
 
   worker:
     image: daongocthanh/demo-worker
-    build: worker
+    networks:
+      - verse
     deploy:
       replicas: 1
-    networks:
-      - "verse"
 
 volumes:
   mongo-data:
+  rabbit-data:
 
 networks:
   verse:

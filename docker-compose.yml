@@ -1,69 +1,31 @@
 version: "3.5"
 
 services:
-  # traefik:
-  #   image: traefik:1.7-alpine
-  #   ports:
-  #     - "80:80"
-  #     - "8086:8080"
-  #     - "443:443"
-  #   volumes:
-  #     - "/var/run/docker.sock:/var/run/docker.sock"
-  #     - "./traefik/traefik.dev.toml:/etc/traefik/traefik.toml"
+   web:
+    build:
+      context: web
+      dockerfile: Dockerfile.dev
+    volumes:
+      - "./web:/app"
 
-  # rabbit:
-  #   image: "rabbitmq:3-management"
-  #   hostname: "rabbitmq"
-  #   environment:
-  #     RABBITMQ_ERLANG_COOKIE: "H1hK3rDP1qySM7UH"
-  #     RABBITMQ_DEFAULT_USER: "guest"
-  #     RABBITMQ_DEFAULT_PASS: "guest"
-  #     RABBITMQ_DEFAULT_VHOST: "/"
-  #   ports:
-  #     - "15678:15672"
-
-  # mongodb:
-  #   image: mongo
-  #   ports:
-  #     - "27017:27017"
-  #   environment:
-  #     - "MONGO_INITDB_ROOT_USERNAME=root"
-  #     - "MONGO_INITDB_ROOT_PASSWORD=root_password"
-  #     - "MONGO_INITDB_DATABASE=admin"
-  #   volumes:
-  #     - "mongo-data:/data/db"
-
-  # web:
-  #   build:
-  #     context: web
-  #     dockerfile: Dockerfile.dev
-  #   volumes:
-  #     - "./web:/app"
-  #   labels:
-  #     - "traefik.enable=true"
-  #     - "traefik.frontend.rule=Host:web.docker.localhost"
-  #     - "traefik.port=3000"
-  # server:
-  #   build:
-  #     context: server-graphql
-  #     dockerfile: Dockerfile.dev
-  #   volumes:
-  #     - "./server-graphql:/app"
-  #   ports:
-  #     - "8000:8000"
-  #   labels:
-  #     - "traefik.enable=true"
-  #     - "traefik.frontend.rule=Host:server.docker.localhost"
-  #     - "traefik.port=8000"
-  # server-rest:
-  #   build:
-  #     context: server-rest
-  #     dockerfile: Dockerfile.dev
-  #   volumes:
-  #     - "./server-rest:/app"
-  #     - "/app/node_modules"
-  #   ports:
-  #     - "4000:4000"
+  server:
+    build:
+      context: server-graphql
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8000:8000"
+    volumes:
+      - "./server-graphql:/app"
+    
+  server-rest:
+    build:
+      context: server-rest
+      dockerfile: Dockerfile.dev
+    ports:
+      - "4000:4000"
+    volumes:
+      - "./server-rest:/app"
+      - "/app/node_modules"
 
   worker:
     build:
@@ -72,5 +34,32 @@ services:
     volumes:
       - "./worker:/app"
 
+  rabbit:
+    image: "rabbitmq:3-management"
+    ports:
+      - "15678:15672"
+    volumes:
+      - "rabbit-data:/var/lib/rabbitmq"
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "H1hK3rDP1qySM7UH"
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    hostname: "rabbitmq"
+    
+
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - "mongo-data:/data/db"
+    environment:
+      - "MONGO_INITDB_ROOT_USERNAME=root"
+      - "MONGO_INITDB_ROOT_PASSWORD=root_password"
+      - "MONGO_INITDB_DATABASE=admin"
+    
+
 volumes:
   mongo-data:
+  rabbit-data:
