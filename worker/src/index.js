@@ -1,4 +1,4 @@
-const sharpServices = require("sharp.services");
+const sharpServices = require("utils/sharp.utils");
 
 async function startServer() {
   console.log("Worker is running ....");

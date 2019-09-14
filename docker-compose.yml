@@ -1,7 +1,7 @@
 version: "3.5"
 
 services:
-   web:
+  web:
     build:
       context: web
       dockerfile: Dockerfile.dev
@@ -16,7 +16,7 @@ services:
       - "8000:8000"
     volumes:
       - "./server-graphql:/app"
-    
+
   server-rest:
     build:
       context: server-rest
@@ -41,12 +41,11 @@ services:
     volumes:
       - "rabbit-data:/var/lib/rabbitmq"
     environment:
-      RABBITMQ_ERLANG_COOKIE: "H1hK3rDP1qySM7UH"
-      RABBITMQ_DEFAULT_USER: "guest"
-      RABBITMQ_DEFAULT_PASS: "guest"
-      RABBITMQ_DEFAULT_VHOST: "/"
-    hostname: "rabbitmq"
-    
+      - "RABBITMQ_ERLANG_COOKIE=H1hK3rDP1qySM7UH"
+      - "RABBITMQ_DEFAULT_USER=guest"
+      - "RABBITMQ_DEFAULT_PASS=guest"
+      - "RABBITMQ_DEFAULT_VHOST=/"
+    hostname: rabbitmq
 
   mongodb:
     image: mongo
@@ -58,7 +57,6 @@ services:
       - "MONGO_INITDB_ROOT_USERNAME=root"
       - "MONGO_INITDB_ROOT_PASSWORD=root_password"
       - "MONGO_INITDB_DATABASE=admin"
-    
 
 volumes:
   mongo-data:
