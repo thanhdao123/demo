@@ -1,0 +1,8 @@
+extend type Mutation {
+  addOneActivePerson(id: String!): Boolean
+  removeOneActivePerson(id: String!): Boolean
+}
+
+extend type Subscription {
+  subscribeToActivePersonList: [String]
+}

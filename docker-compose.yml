@@ -22,6 +22,7 @@ services:
       - "8000:8000"
     volumes:
       - "./server-graphql:/app"
+      - "/app/node_modules"
     environment:
       - "APP_PORT=8000"
       - "MONGO_HOST=mongodb"
