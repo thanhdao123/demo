@@ -13,4 +13,8 @@ RUN yarn install --production
 
 COPY . .
 
+<<<<<<< HEAD
 CMD ["sh", "-c", "dockerize -wait tcp://rabbit:5672 -wait tcp://mongodb:27017 -timeout 60s && yarn start"]
+=======
+CMD ["sh", "-c", "dockerize -wait tcp://mongodb:27017 -wait tcp://rabbit:5672 -timeout 60s && yarn start"]
+>>>>>>> af68fc96af2345a890b402bc52bd770ffd370e71

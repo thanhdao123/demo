@@ -24,16 +24,26 @@ mongoose.connection.on("error", error => {
 });
 
 async function connectDB() {
+<<<<<<< HEAD
   const connectionString = makeConnectionString(mongoConfig);
   mongoose.connect(connectionString, {
+=======
+  const connectionString = createConnectionString(mongoConfig);
+  await mongoose.connect(connectionString, {
+>>>>>>> af68fc96af2345a890b402bc52bd770ffd370e71
     useNewUrlParser: true,
     autoReconnect: true,
     useFindAndModify: false
   });
 }
 
+<<<<<<< HEAD
 function makeConnectionString(config) {
   const { host, port, username, password, database } = config;
+=======
+function createConnectionString(config) {
+  const { host, port, database, username, password } = config;
+>>>>>>> af68fc96af2345a890b402bc52bd770ffd370e71
   return `mongodb://${username}:${password}@${host}:${port}/${database}`;
 }
 
