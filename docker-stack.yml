@@ -19,13 +19,16 @@ services:
     image: daongocthanh/demo-web
     ports:
       - "3000:3000"
+    environment:
+      - "REACT_APP_APOLLO_HTTP_URI=http://104.199.129.145/server/graphql"
+      - "REACT_APP_APOLLO_WS_URI=ws://104.199.129.145/server/graphql"
     deploy:
       replicas: 1
       labels:
         - "traefik.enable=true"
         - "traefik.port=3000"
         - "traefik.frontend.rule=Host:104.199.129.145"
-        - "traefik.docker.network=mektube_verse"
+        - "traefik.docker.network=demo_verse"
     networks:
       - verse
 
@@ -41,7 +44,7 @@ services:
         - "traefik.enable=true"
         - "traefik.port=3000"
         - "traefik.frontend.rule=Host:104.199.129.145;PathPrefixStrip:/server"
-        - "traefik.docker.network=mektube_verse"
+        - "traefik.docker.network=demo_verse"
 
   # worker:
   #   image: daongocthanh/demo-worker
