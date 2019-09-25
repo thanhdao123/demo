@@ -114,3 +114,5 @@ volumes:
 networks:
   verse:
     driver: overlay
+  demo_global:
+    external: true
