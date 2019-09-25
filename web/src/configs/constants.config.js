@@ -1,7 +1,6 @@
 const config = {
-  apolloHttpLinkURI: process.env.REACT_APP_APOLLO_HTTP_URI,
-  apolloWsLinkURI: process.env.REACT_APP_APOLLO_WS_URI,
-  apolloServerBaseURL: process.env.REACT_APP_APOLLO_SERVER_BASE_URL
+  apolloHttpLinkURI: "http://104.199.129.145/server/graphql",
+  apolloWsLinkURI: "ws://104.199.129.145/server/graphql",
+  apolloServerBaseURL: "http://104.199.129.145/server"
 };
-
 export default config;
