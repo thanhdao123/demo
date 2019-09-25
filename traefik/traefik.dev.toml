@@ -9,6 +9,5 @@ defaultEntryPoints = ["http"]
 [api]
 
 [docker]
-  domain = "docker.localhost"
   endpoint = "unix:///var/run/docker.sock"
   exposedByDefault = false

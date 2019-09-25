@@ -7,8 +7,4 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
 
 WORKDIR /app
 
-<<<<<<< HEAD
-CMD ["sh", "-c", "dockerize -wait http://server:8000/healthz -timeout 30s && yarn start"]
-=======
 CMD ["yarn", "start"]
->>>>>>> af68fc96af2345a890b402bc52bd770ffd370e71

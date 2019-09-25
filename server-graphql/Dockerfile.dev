@@ -7,16 +7,8 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
 
 WORKDIR /app
 
-<<<<<<< HEAD
 COPY package.json package.json
 
 RUN yarn install
 
 CMD ["sh", "-c", "dockerize -wait tcp://mongodb:27017 -timeout 60s && yarn dev"]
-=======
-COPY package.json yarn.lock ./
-
-RUN yarn install
-
-CMD ["sh", "-c", "dockerize -wait tcp://mongodb:27017 -wait tcp://rabbit:5672 -timeout 60s && yarn dev"]
->>>>>>> af68fc96af2345a890b402bc52bd770ffd370e71
