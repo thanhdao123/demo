@@ -25,12 +25,10 @@ services:
         - "traefik.enable=true"
         - "traefik.port=3000"
         - "traefik.frontend.rule=Host:104.199.129.145"
-        - "traefik.docker.network=demo_verse"
-    environment:
-      - "REACT_APP_APOLLO_HTTP_URI=http://104.199.129.145/server/graphql"
-      - "REACT_APP_APOLLO_WS_URI=ws://104.199.129.145/server/graphql"
+        - "traefik.docker.network=demo_global"
     networks:
       - verse
+      - demo_global
 
   server-graphql:
     image: daongocthanh/server-graphql
@@ -42,7 +40,7 @@ services:
         - "traefik.enable=true"
         - "traefik.port=8000"
         - "traefik.frontend.rule=Host:104.199.129.145;PathPrefixStrip:/server"
-        - "traefik.docker.network=demo_verse"
+        - "traefik.docker.network=demo_global"
     environment:
       - "APP_PORT=8000"
       - "MONGO_HOST=mongodb"
@@ -56,6 +54,7 @@ services:
       - "INTERNAL_RABBIT_PASSWORD=guest"
     networks:
       - verse
+      - demo_global
     
   # worker:
   #   image: daongocthanh/demo-worker
