@@ -28,7 +28,8 @@ async function connectDB() {
   mongoose.connect(connectionString, {
     useNewUrlParser: true,
     autoReconnect: true,
-    useFindAndModify: false
+    useFindAndModify: false,
+    useUnifiedTopology: true 
   });
 }
 
