@@ -83,6 +83,16 @@ services:
     networks:
       - verse
 
+secrets:
+  rabbit_username:
+    file: secrets/rabbit_username.txt
+  rabbit_password:
+    file: secrets/rabbit_password.txt
+  mongo_username:
+    file: secrets/mongo_username.txt
+  mongo_password:
+    file: secrets/mongo_password.txt
+
 volumes:
   mongo-data:
   rabbit-data:
