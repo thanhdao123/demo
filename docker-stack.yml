@@ -7,21 +7,18 @@ services:
       - "80:80"
       - "8080:8080"
       - "443:443"
-    networks:
-      - verse
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "./traefik/traefik.toml:/etc/traefik/traefik.toml"
     deploy:
       replicas: 1
+    networks:
+      - verse
   
   web:
     image: daongocthanh/demo-web
     ports:
       - "3000:3000"
-    environment:
-      - "REACT_APP_APOLLO_HTTP_URI=http://104.199.129.145/server/graphql"
-      - "REACT_APP_APOLLO_WS_URI=ws://104.199.129.145/server/graphql"
     deploy:
       replicas: 1
       labels:
@@ -29,6 +26,9 @@ services:
         - "traefik.port=3000"
         - "traefik.frontend.rule=Host:104.199.129.145"
         - "traefik.docker.network=demo_verse"
+    environment:
+      - "REACT_APP_APOLLO_HTTP_URI=http://104.199.129.145/server/graphql"
+      - "REACT_APP_APOLLO_WS_URI=ws://104.199.129.145/server/graphql"
     networks:
       - verse
 
@@ -36,8 +36,6 @@ services:
     image: daongocthanh/demo-server-graphql
     ports:
       - "8000:8000"
-    networks:
-      - verse
     deploy:
       replicas: 1
       labels:
@@ -45,7 +43,20 @@ services:
         - "traefik.port=3000"
         - "traefik.frontend.rule=Host:104.199.129.145;PathPrefixStrip:/server"
         - "traefik.docker.network=demo_verse"
-
+    environment:
+      - "APP_PORT=8000"
+      - "MONGO_HOST=mongodb"
+      - "MONGO_PORT=27017"
+      - "MONGO_USERNAME=root"
+      - "MONGO_PASSWORD=root_password"
+      - "MONGO_DATABASE=admin"
+      - "INTERNAL_RABBIT_HOSTNAME=rabbitmq"
+      - "INTERNAL_RABBIT_PORT=5672"
+      - "INTERNAL_RABBIT_USERNAME=guest"
+      - "INTERNAL_RABBIT_PASSWORD=guest"
+    networks:
+      - verse
+    
   # worker:
   #   image: daongocthanh/demo-worker
   #   networks:
