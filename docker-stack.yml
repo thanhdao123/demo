@@ -14,21 +14,56 @@ services:
       - "./traefik/traefik.toml:/etc/traefik/traefik.toml"
     deploy:
       replicas: 1
-
-  rabbit:
-    image: rabbitmq:3-management
+  
+  web:
+    image: daongocthanh/demo-web
     ports:
-      - "15678:15672"
+      - "3000:3000"
+    deploy:
+      replicas: 1
+      labels:
+        - "traefik.enable=true"
+        - "traefik.port=3000"
+        - "traefik.frontend.rule=Host:104.199.129.145"
+        - "traefik.docker.network=mektube_verse"
     networks:
       - verse
-    volumes:
-      - "rabbit-data:/var/lib/rabbitmq"
-    environment:
-      - "RABBITMQ_ERLANG_COOKIE=H1hK3rDP1qySM7UH"
-      - "RABBITMQ_DEFAULT_USER=guest"
-      - "RABBITMQ_DEFAULT_PASS=guest"
-      - "RABBITMQ_DEFAULT_VHOST:/"
-    hostname: rabbitmq
+
+  server-graphql:
+    image: daongocthanh/demo-server-graphql
+    ports:
+      - "8000:8000"
+    networks:
+      - verse
+    deploy:
+      replicas: 1
+      labels:
+        - "traefik.enable=true"
+        - "traefik.port=3000"
+        - "traefik.frontend.rule=Host:104.199.129.145;PathPrefixStrip:/server"
+        - "traefik.docker.network=mektube_verse"
+
+  # worker:
+  #   image: daongocthanh/demo-worker
+  #   networks:
+  #     - verse
+  #   deploy:
+  #     replicas: 1
+  
+  # rabbit:
+  #   image: rabbitmq:3-management
+  #   ports:
+  #     - "15678:15672"
+  #   networks:
+  #     - verse
+  #   volumes:
+  #     - "rabbit-data:/var/lib/rabbitmq"
+  #   environment:
+  #     - "RABBITMQ_ERLANG_COOKIE=H1hK3rDP1qySM7UH"
+  #     - "RABBITMQ_DEFAULT_USER=guest"
+  #     - "RABBITMQ_DEFAULT_PASS=guest"
+  #     - "RABBITMQ_DEFAULT_VHOST:/"
+  #   hostname: rabbitmq
 
   mongodb:
     image: mongo
@@ -47,37 +82,6 @@ services:
       - "mongo-data:/data/db"
     networks:
       - verse
-
-  web:
-    image: daongocthanh/demo-web
-    ports:
-      - "3000:3000"
-    deploy:
-      replicas: 1
-      labels:
-        - "traefik.enable=true"
-        - "traefik.port=3000"
-    networks:
-      - verse
-
-  server-graphql:
-    image: daongocthanh/demo-server-graphql
-    ports:
-      - "8000:8000"
-    networks:
-      - verse
-    deploy:
-      replicas: 1
-      labels:
-        - "traefik.enable=true"
-        - "traefik.port=8000"
-
-  # worker:
-  #   image: daongocthanh/demo-worker
-  #   networks:
-  #     - verse
-  #   deploy:
-  #     replicas: 1
 
 volumes:
   mongo-data:
