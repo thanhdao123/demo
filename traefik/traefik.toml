@@ -1,5 +1,8 @@
 defaultEntryPoints = ["http"]
 
+[log]
+  level = "INFO"
+
 [entryPoints]
   [entryPoints.http]
   address = ":80"
