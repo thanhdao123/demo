@@ -1,22 +1,22 @@
-defaultEntryPoints = ["https", "http"]
+defaultEntryPoints = ["http"]
 
 [entryPoints]
   [entryPoints.http]
   address = ":80"
-    [entryPoints.http.redirect]
-    entryPoint = "https"
-  [entryPoints.https]
-  address = ":443"
-  [entryPoints.https.tls]
+  #   [entryPoints.http.redirect]
+  #   entryPoint = "https"
+  # [entryPoints.https]
+  # address = ":443"
+  # [entryPoints.https.tls]
 
-[acme]
-  email = "daongocthanh98hy@gmail.com"
-  storageFile = "/etc/traefik/acme.json"
-  entryPoint = "https"
-  onDemand = false
-  OnHostRule = true
-    [acme.httpChallenge]
-    entryPoint = "http"
+# [acme]
+#   email = "daongocthanh98hy@gmail.com"
+#   storageFile = "/etc/traefik/acme.json"
+#   entryPoint = "https"
+#   onDemand = false
+#   OnHostRule = true
+#     [acme.httpChallenge]
+#     entryPoint = "http"
 
 [api]
 
