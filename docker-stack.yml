@@ -16,7 +16,7 @@ services:
       - verse
   
   web:
-    image: daongocthanh/demo-web
+    image: daongocthanh/web
     ports:
       - "3000:3000"
     deploy:
@@ -33,7 +33,7 @@ services:
       - verse
 
   server-graphql:
-    image: daongocthanh/demo-server-graphql
+    image: daongocthanh/server-graphql
     ports:
       - "8000:8000"
     deploy:
